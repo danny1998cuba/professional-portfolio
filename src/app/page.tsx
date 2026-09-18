@@ -1,15 +1,12 @@
+import { PageIntro } from "@/components/layout/page-intro";
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen items-center justify-center p-6">
-      <div className="max-w-xl text-center">
-        <h1 className="text-3xl font-semibold tracking-tight">
-          Temporary portfolio placeholder
-        </h1>
-        <p className="mt-4 text-base leading-7 text-zinc-600 dark:text-zinc-400">
-          This page only verifies that the application foundation and global
-          styling are working.
-        </p>
-      </div>
-    </main>
+    <PageIntro
+      eyebrow="Homepage placeholder"
+      title="Daniel Gonzalez Cuetara"
+      description="The final homepage content will be implemented in the next phase. This temporary page demonstrates the global visual system and site shell."
+      display
+    />
   );
 }

@@ -1,26 +1,116 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f7f6f2;
+  --surface: #ffffff;
+  --foreground: #181817;
+  --muted: #686865;
+  --border: #deddd7;
+  --accent: #3157d5;
+  --accent-strong: #2445b5;
+  color-scheme: light;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    background: var(--background);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: #ffffff;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .type-display {
+    font-size: clamp(2.625rem, 6vw, 4.75rem);
+    font-weight: 650;
+    letter-spacing: -0.05em;
+    line-height: 1;
+  }
+
+  .type-page-heading {
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    font-weight: 650;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+  }
+
+  .type-section-heading {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 620;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+  }
+
+  .type-card-heading {
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    font-weight: 620;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+  }
+
+  .type-body {
+    font-size: clamp(1rem, 1.4vw, 1.125rem);
+    line-height: 1.7;
+  }
+
+  .type-body-small {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .type-meta {
+    font-family: var(--font-geist-mono), monospace;
+    font-size: 0.75rem;
+    font-weight: 550;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+    text-transform: uppercase;
+  }
+
+  .page-section {
+    padding-block: clamp(4rem, 8vw, 7rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }
