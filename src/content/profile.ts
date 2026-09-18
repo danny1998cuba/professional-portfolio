@@ -21,5 +21,10 @@ export const professionalProfile = {
   },
   links: {
     github: "https://github.com/danny1998cuba",
+    linkedin: "https://www.linkedin.com/in/danny98cuba/?locale=en-US",
+  },
+  email: "danny.glezcuet98@gmail.com",
+  technicalInitiatives: {
+    coreX4Dev: "https://corex4dev.com",
   },
 } as const satisfies ProfessionalProfile;

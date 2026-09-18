@@ -149,4 +149,7 @@ export interface ProfessionalProfile {
     linkedin?: ExternalUrl;
   };
   email?: string;
+  technicalInitiatives?: {
+    coreX4Dev: ExternalUrl;
+  };
 }

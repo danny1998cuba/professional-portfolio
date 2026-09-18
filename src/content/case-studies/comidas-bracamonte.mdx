@@ -1,27 +1,131 @@
-# Comidas Bracamonte — editorial draft
+# Comidas Bracamonte
 
-## Context
+Comidas Bracamonte is an established food-service business in Spain that needed to move from a fragmented offline workflow to a more complete online operation.
 
-TODO: Author the project context from confirmed discovery material.
+Before this project, the business already had a WordPress landing page and a separate PHP-based platform for managing dishes, but the different parts of the operation were disconnected. The goal was to create a single platform where customers could discover the service, configure their subscription, select meals, pay, and where the business could manage the operational rules behind the service from one administration interface.
 
-## Problem evolution
+## My role
 
-- Confirmed note: Menu and recommendation behavior initially varied by Spanish province.
-- Confirmed note: The requirements later evolved toward postal-code-driven behavior.
+I developed the platform end to end between November 2024 and February 2026.
 
-TODO: Describe the requirement change without inventing business impact.
+My work covered the customer-facing application, CMS architecture, business rules, checkout and payments, menu management, geographic pricing, administrative workflows, deployment, and ongoing maintenance.
+
+The application was built with Next.js and Strapi and deployed as a production system used by the business.
+
+## The challenge
+
+The difficult part of the project was not simply displaying menus online.
+
+Comidas Bracamonte operates a subscription-based meal service where pricing, availability, and recommendations depend on where the customer lives.
+
+The initial implementation organized many of these rules around Spanish provinces. In practice, that was too coarse.
+
+A town physically close to the business could belong to another province, while locations within the same province could have very different delivery conditions. The platform therefore evolved toward postal-code-based rules.
+
+This allowed the business to model service areas based on actual proximity and operational needs rather than administrative boundaries.
+
+## Subscription and menu flow
+
+The customer journey starts by entering a postal code.
+
+The platform uses that location to determine the applicable pricing and the dishes available for that area.
+
+Customers then choose between five or seven weekly services. That choice, together with their postal code, determines the subscription price.
+
+After selecting the service, the customer configures their meals from the dishes available for their location.
+
+Menus are prepared across a five-week cycle, after which the customer proceeds to checkout.
+
+The subscription is billed monthly and paid in advance. The system also handles adjustments for customers joining during an active period and calculates refund amounts when a cancellation requires one.
+
+## Geographic pricing
+
+Rather than storing a completely separate price for every location, I designed the pricing model around a default price with explicit postal-code exceptions.
+
+This made the system easier for the business to manage while still allowing nearby towns or specific delivery areas to receive different pricing, including discounts based on proximity.
+
+The business can create and update these exceptions directly from the administration interface without requiring a code change or deployment.
+
+## Recommended menus
+
+Selecting every meal individually across several weeks can require a significant amount of interaction.
+
+To simplify that process, I built a custom Strapi plugin that allows the business to prepare recommended sets of dishes for one or more postal codes.
+
+The business can define weekly meal selections based on combinations that perform well for a particular service area.
+
+When a customer chooses **Use recommended**, the platform preloads the configured selection instead of requiring them to go through every week and meal manually.
+
+The recommendation logic remains controlled by the business rather than being hardcoded into the frontend.
+
+## CMS-first administration
+
+A major architectural goal was to keep operational rules editable by the business.
+
+Wherever practical, I modeled the platform's configuration inside Strapi instead of embedding business rules directly in application code.
+
+The administration area gives the business control over content and operational data while applying restrictions intended to preserve data integrity.
+
+This includes the ability to manage areas such as menus, dishes, price exceptions, recommendations, coupons, and other information required by the customer flow.
+
+The result is a system where changes to day-to-day business configuration do not normally require developer intervention.
+
+## Payments
+
+The checkout integrates Redsys as the primary payment provider.
+
+Customers can pay by card or Bizum through the online payment flow.
+
+The platform also supports bank transfer as an alternative. In that case, the order is coordinated through the website and the customer receives the predefined communication needed to complete the payment externally through WhatsApp.
+
+The payment flow is connected to the subscription and menu configuration so that the final order reflects the customer's selected service, location, pricing, and meals.
+
+## From checkout to kitchen operations
+
+The application also connects the customer-facing flow with the operational side of the service.
+
+After a successful order, the system generates a PDF containing the customer's menu selection.
+
+That document is used by the kitchen service provider as the basis for preparing the customer's meals.
+
+This means the platform does more than collect an online payment: it carries the customer's configuration through to a format that can be used in the physical fulfillment process.
 
 ## Technical decisions
 
-- Confirmed note: Pricing combined a default/main price with exception rules for specific postal codes.
-- Confirmed note: Daniel built a custom Strapi plugin for managing predefined customer recommendations and suggestions based on ZIP code.
+Several decisions in the project were driven by maintainability and business autonomy.
 
-TODO: Author the decision rationale and trade-offs from confirmed technical discovery.
+Using postal codes instead of provinces made the geographic rules match the way the service actually operates.
 
-## Features delivered
+Using a default price with explicit exceptions avoided maintaining redundant pricing data for every possible location.
 
-TODO: Select and describe confirmed features without duplicating the structured project metadata.
+Keeping recommendations and operational configuration inside Strapi allowed the business to change its offering without modifying application code.
+
+The custom recommendation plugin extended the CMS for a workflow that was specific to the business instead of forcing the team to manage that information through generic content fields.
 
 ## Result
 
-TODO: Author only after outcomes have been confirmed. Do not add inferred metrics.
+The platform was deployed to production and replaced a much more fragmented way of managing the business online.
+
+Customers can move through location validation, service selection, meal configuration, payment, and order generation in one connected flow.
+
+The business can manage its content, menus, recommendations, geographic price exceptions, and related configuration from the administration interface without depending on a deployment for routine changes.
+
+I continued maintaining the platform through February 2026.
+
+## Technology
+
+Next.js, React, Strapi, payment integrations, Redsys, REST APIs, CMS customization, PDF generation, SEO, Linux/VPS deployment.
+
+## Ongoing maintenance
+
+I continued maintaining the platform through February 2026.
+
+The final maintenance update added JSON-LD structured data to strengthen the site's machine-readable SEO metadata and improve how its content could be understood by search engines and other structured-data consumers.
+
+---
+
+TODO: Add public customer-flow screenshots.
+
+TODO: Add a sanitized Strapi administration screenshot.
+
+TODO: If available, add a sanitized screenshot of the custom recommendation plugin.

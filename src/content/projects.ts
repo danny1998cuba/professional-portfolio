@@ -9,7 +9,7 @@ export const projects = [
     slug: "comidas-bracamonte",
     title: "Comidas Bracamonte",
     shortDescription:
-      "Production web application for multilingual weekly menus, ordering, and delivery workflows.",
+      "Production food-service platform built end to end with Next.js and Strapi, including multilingual content, weekly menus, checkout, postal-code-aware pricing and recommendations, coupons, payments, and deployment.",
     classification: "client",
     type: "web-application",
     status: "production",
@@ -60,7 +60,7 @@ export const projects = [
     slug: "madres-de-la-leche",
     title: "Madres de la Leche",
     shortDescription:
-      "Bilingual production web application with CMS-managed structured and legal content.",
+      "Content-driven platform built end to end with Next.js and Payload CMS, combining responsive interfaces, structured bilingual content, SEO, and CMS-managed publishing.",
     classification: "client",
     type: "web-application",
     status: "production",
@@ -96,7 +96,7 @@ export const projects = [
     slug: "tipstertotal",
     title: "Tipstertotal",
     shortDescription:
-      "Pre-launch client web product with authentication, subscriptions, rankings, and Stripe Connect workflows.",
+      "Pre-launch sports analyst marketplace built end to end with Next.js and MongoDB, including authentication, subscriptions, Stripe Connect, rankings, and webhooks.",
     classification: "client",
     type: "web-application",
     status: "pre-launch",
