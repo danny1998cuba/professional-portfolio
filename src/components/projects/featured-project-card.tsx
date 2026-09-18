@@ -51,7 +51,7 @@ function formatYearMonth(value: YearMonth): string {
 }
 
 export function FeaturedProjectCard({ project }: FeaturedProjectCardProps) {
-  const displayedTechnologies = project.technologies.slice(0, 3);
+  const displayedTechnologies = project.technologies.slice(0, 4);
 
   return (
     <article className="flex h-full flex-col rounded-sm border border-border bg-surface p-5 sm:p-6">

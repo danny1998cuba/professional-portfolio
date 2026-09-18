@@ -1,24 +1,138 @@
-# Tipstertotal — editorial draft
-
 ## Context
 
-- Confirmed note: This was a client project for the same client as Comidas Bracamonte.
-- Confirmed note: It reached the pre-launch stage.
+Tipstertotal was a client project built around a marketplace for sports analysts and people looking for betting analysis.
 
-TODO: Author the project context without presenting it as Daniel's startup.
+The idea was to bring analysts who were often operating through informal Telegram channels into a structured platform where they could publish their analysis, build an audience, and sell subscriptions.
+
+The marketplace supported two main types of users: analysts who published recommended bets and customers who could subscribe to one or more analysts and use their analysis when deciding which bets to place.
+
+Each analyst could define their own pricing and subscription packages.
+
+The platform would retain a percentage of each subscription while the remaining balance belonged to the analyst.
 
 ## My role
 
-Confirmed note: Daniel developed the application end-to-end.
+I developed the product end to end between August 2024 and February 2025.
 
-TODO: Expand only with confirmed responsibilities.
+My work covered the customer and analyst experiences, role-based application flows, authentication, subscriptions, analyst pricing, payments, financial tracking, payout infrastructure, rankings, webhooks, backend workflows, and deployment.
 
-## Technical decisions
+The application was built with Next.js and MongoDB and reached a pre-launch stage.
 
-TODO: Author from confirmed implementation details.
+## The marketplace model
+
+The platform was designed around independent analysts rather than a single centralized subscription.
+
+Analysts could create their own offers and decide how they wanted to price their service.
+
+Customers could then subscribe to multiple analysts at the same time rather than being limited to one platform-wide plan.
+
+This meant the application needed to keep track of several related financial concepts:
+
+- customer subscriptions;
+- analyst-specific pricing;
+- platform commissions;
+- analyst balances;
+- payment state;
+- future payouts.
+
+The financial model therefore became part of the application's core domain rather than simply being delegated to a checkout provider.
+
+## Rethinking the payout architecture
+
+The original payment architecture was based on Stripe Connect.
+
+That approach would have allowed analysts to be onboarded as connected accounts while Stripe handled much of the marketplace payment and payout infrastructure.
+
+During development, however, geographic coverage became a major constraint.
+
+The product was intended to support analysts across Latin America and other markets where Stripe Connect did not provide the coverage required by the business.
+
+Instead of restricting the marketplace to the countries supported by that model, I redesigned the financial architecture.
+
+Customer payments continued to be processed through Stripe, but analyst balances, platform commissions, and payout state were tracked internally in MongoDB.
+
+This gave the application control over the financial ledger while allowing the payout mechanism to be separated from the customer payment provider.
+
+## Stripe and Wise payout flow
+
+Wise became the payout layer for analysts.
+
+During onboarding, analysts could register the account they wanted to use for receiving payouts through the Wise integration.
+
+The platform then maintained the analyst's payable balance based on subscriptions and the marketplace commission model.
+
+Scheduled jobs handled the payout workflow.
+
+At defined points during the month, funds were moved from the payment flow into Wise and distributed to eligible analysts through the Wise API.
+
+The payout cycle was designed to run twice per month rather than triggering an external transfer for every individual customer payment.
+
+This separated customer billing from analyst settlement and allowed the marketplace to support a broader geographic footprint than the original Stripe Connect design.
+
+## Financial state in MongoDB
+
+Because the final architecture did not rely on Stripe Connect as the system of record for each analyst, the application needed to maintain its own financial state.
+
+MongoDB tracked the information required to determine what portion of incoming subscription revenue belonged to the platform and what portion was payable to each analyst.
+
+That state was then used by scheduled processes when preparing the next payout cycle.
+
+This architecture required the application to take responsibility for financial consistency rather than treating the payment provider as the complete marketplace ledger.
+
+## Analyst and customer experiences
+
+The two roles had different workflows inside the same application.
+
+Analysts needed tools for publishing their sports analysis, managing their offers, setting subscription prices, and receiving earnings from their subscribers.
+
+Customers needed to discover analysts, review the content and information available about them, and subscribe independently to the analysts they wanted to follow.
+
+The product also included rankings to help organize and surface analysts inside the marketplace.
+
+A customer was not tied to a single analyst and could maintain several analyst subscriptions simultaneously.
+
+## Subscriptions and recurring workflows
+
+Subscriptions connected customer access with the analyst's pricing and the financial state used by the payout system.
+
+Payment events and webhooks kept the application synchronized with changes occurring in the external payment flow.
+
+Scheduled jobs then handled work that did not belong in an immediate request-response cycle, particularly financial settlement and analyst payouts.
+
+Separating those responsibilities helped keep customer checkout independent from the slower operational processes required to settle marketplace balances.
+
+## Adapting the architecture to real constraints
+
+The largest technical challenge in the project was not implementing the original marketplace design.
+
+It was recognizing that the original payment architecture did not fit the geographic requirements of the product and replacing it without abandoning the marketplace model.
+
+Stripe Connect initially appeared to solve both payments and analyst payouts.
+
+Its country limitations meant that relying on it would have excluded part of the audience the client wanted the product to serve.
+
+The resulting Stripe, MongoDB, scheduled-job, and Wise architecture moved more responsibility into the application, but it also gave the product greater control over analyst balances and broader payout options.
+
+That trade-off became one of the central architectural decisions in the project.
+
+## Pre-launch experiments
+
+As the product approached launch, acquiring enough analysts to make the marketplace useful became a business challenge.
+
+One experiment explored creating automated analyst profiles using Python, web scraping, and Telegram automation as a way to generate an initial supply of betting analysis.
+
+The experiment did not become a reliable production feature and was not part of the final marketplace experience.
+
+It remained an exploratory attempt to address the supply problem rather than a core part of the product.
 
 ## Result
 
-Confirmed note: The product did not proceed commercially because of client-side administrative circumstances.
+Tipstertotal reached a functional pre-launch stage with the core marketplace architecture in place.
 
-TODO: Add no speculation, users, revenue, transactions, or launch metrics.
+The application supported separate customer and analyst roles, analyst-defined subscription offers, recurring customer subscriptions, marketplace commissions, financial tracking, payout workflows, rankings, and the infrastructure required to distribute analyst earnings.
+
+The project did not progress into sustained commercial operation.
+
+The client was unable to acquire enough analysts to establish the marketplace supply needed for launch, and no meaningful customer or analyst base was ultimately established.
+
+The project was discontinued for commercial and acquisition reasons rather than because the core technical implementation could not be completed.

@@ -1,23 +1,168 @@
-# Madres de la Leche — editorial draft
-
 ## Context
 
-TODO: Author the project context from confirmed discovery material.
+Madres de la Leche is a Spanish nonprofit association that supports mothers during the early stages of breastfeeding through community, information, events, talks, and partnerships with local businesses.
+
+The association operates through an annual membership model. Members pay a small yearly fee to access benefits offered by participating businesses and to take part in activities, events, and talks organized by the association.
+
+Before this project, the organization had almost no dedicated digital infrastructure beyond a Blogspot presence.
+
+The original request was relatively small: create a modern online presence.
+
+As the project evolved, that scope expanded into a complete membership, content, communication, and administration platform.
 
 ## My role
 
-Confirmed note: Daniel developed the application end-to-end as the sole developer.
+I designed and developed the platform end to end between August 2025 and January 2026.
 
-TODO: Expand only with confirmed responsibilities.
+My work covered the public website, Payload CMS architecture, authentication, member registration, annual membership payments, digital member identification, events, news, forms, email workflows, administrative tooling, SEO, deployment, and the ongoing adaptation of the product as new requirements emerged.
 
-## Constraints
+The platform was built with Next.js and Payload CMS.
 
-TODO: Add constraints after they have been confirmed.
+## From landing page to member platform
+
+One of the defining challenges of the project was the continuous expansion of scope.
+
+What started as a request for a landing page gradually became a platform that needed to support users, members, payments, events, communication, managed content, physical locations, and administration.
+
+Rather than treating every new requirement as an isolated feature, I evolved the underlying application and content model so the new capabilities could remain part of one coherent system.
+
+This required keeping the architecture flexible enough to absorb incremental requirements without turning the application into a collection of disconnected pages and workflows.
+
+## Memberships
+
+The association operates through annual memberships.
+
+I implemented the registration and membership flow so users can create an account, become members, and pay their annual membership through Stripe.
+
+Membership status is part of the application domain rather than existing only as a payment record.
+
+This allows the platform to distinguish between members and the general public wherever the association needs different access, benefits, information, or pricing.
+
+## Digital member identification
+
+Members receive a digital identifier that they can present to participating businesses.
+
+This gives members a practical way to demonstrate their association membership when accessing benefits offered by those businesses.
+
+The feature connects the online membership system with benefits that are redeemed in physical locations.
+
+## Events and differentiated pricing
+
+The platform includes upcoming and past events managed through the CMS.
+
+Events can contain information relevant to both association members and the general public, including differentiated pricing where required.
+
+This allows the association to publish the same activity while still reflecting the different conditions that may apply to members and non-members.
+
+The events system forms part of the wider membership and communication model instead of existing as a standalone calendar.
+
+## News and managed content
+
+The association can manage a broad range of content through Payload CMS.
+
+This includes areas such as:
+
+- categories;
+- news;
+- services;
+- events;
+- media;
+- locations;
+- collaborators;
+- legal pages;
+- homepage content;
+- contact content;
+- forms;
+- form submissions;
+- users;
+- members;
+- email templates;
+- general settings.
+
+A major goal was to avoid requiring code changes for routine editorial and operational work.
+
+The administration area was structured around the concepts used by the association rather than exposing only generic technical content types.
+
+This gives the organization direct control over the day-to-day content and configuration of the platform.
+
+## Authentication and Google OAuth
+
+The project required Google authentication, but Payload did not provide the exact OAuth flow needed for the application out of the box.
+
+I implemented a custom Google OAuth integration so users could authenticate with Google while still participating in the same Payload-based user and membership model used by the rest of the application.
+
+This kept social authentication inside one consistent identity system rather than creating a separate account flow.
+
+## Email template system
+
+As the platform grew, transactional and administrative email became part of several workflows.
+
+I implemented a visual email-template management system inside the administration area, adapting an approach I had previously used in another CMS-based project.
+
+The system allows the association to manage the design and content of email templates without hardcoding them into the application.
+
+Templates can include dynamic values supplied by the application when a specific event occurs.
+
+For example, the association can manage the email sent when a new user registers while still receiving system-generated information such as the user's role or an administrative URL.
+
+This keeps communication workflows editable by the organization while preserving the dynamic data required by the application.
+
+## Custom location management
+
+The platform also needed to manage physical locations used by the association and its community.
+
+Payload did not provide the map-based editing experience required for this workflow, so I built a custom field component using Leaflet and OpenStreetMap.
+
+Administrators can select a location directly on the map, move the marker, or enter latitude and longitude manually.
+
+The custom field keeps the geographic values synchronized with the selected position and stores them as part of the managed location content.
+
+Integrating the map directly into the Payload admin meant the association could maintain location data from the same administration environment used for the rest of the platform rather than relying on external tools to find and copy coordinates.
+
+## Forms and administrative workflows
+
+The platform also includes managed forms and submission handling.
+
+Payload acts as the central administrative environment for content, users, members, communication, locations, and site configuration.
+
+As the project expanded, keeping those workflows inside one administration interface became increasingly important.
+
+The goal was not only to expose content in a CMS, but to give the association a practical operating environment for managing the platform without depending on developer intervention for routine updates.
+
+## Public content and language
+
+The public-facing site contains content in Spanish and selected English content where required.
+
+The project does not use a complete internationalization architecture.
+
+Rather than representing the site as fully localized, language-specific content was implemented only where it was needed by the organization.
+
+## SEO
+
+The platform follows standard technical SEO practices across its public pages.
+
+This includes metadata management, sitemap generation, and JSON-LD structured data.
+
+These features were integrated into the content-driven architecture so CMS-managed pages and content could still expose appropriate machine-readable information to search engines.
 
 ## Technical decisions
 
-TODO: Author from confirmed implementation details.
+The project required balancing two competing needs: a growing feature set and an administration experience that remained manageable for a nonprofit organization.
+
+Payload CMS became the central source for editorial content and administrative workflows instead of splitting those functions across separate systems.
+
+Membership status was treated as part of the application's domain model so it could influence features such as digital identification, events, pricing, and member-specific information.
+
+Where Payload did not provide the functionality required by the product, I extended the administration experience rather than moving those workflows outside the CMS.
+
+This included a custom Google OAuth integration, a visual email-template system, and a Leaflet-based location field for managing geographic data directly from the admin.
+
+Most importantly, the application architecture had to remain adaptable as the project evolved from a simple public website into a much broader digital platform.
 
 ## Result
 
-TODO: Add only confirmed outcomes. Do not infer business impact.
+The association went from having little more than a Blogspot presence to operating a dedicated platform for both its public content and member workflows.
+
+The resulting application brings together membership registration and payments, digital member identification, events, differentiated pricing, news, services, forms, email communication, collaborators, locations, and administrative content management.
+
+The organization can manage the majority of its day-to-day content and configuration through Payload rather than depending on code changes for routine updates.

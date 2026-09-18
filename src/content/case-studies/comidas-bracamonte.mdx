@@ -1,131 +1,119 @@
-# Comidas Bracamonte
+## Context
 
-Comidas Bracamonte is an established food-service business in Spain that needed to move from a fragmented offline workflow to a more complete online operation.
+Comidas Bracamonte is an established food-service business in Spain that needed to bring a fragmented offline operation into a single online platform.
 
-Before this project, the business already had a WordPress landing page and a separate PHP-based platform for managing dishes, but the different parts of the operation were disconnected. The goal was to create a single platform where customers could discover the service, configure their subscription, select meals, pay, and where the business could manage the operational rules behind the service from one administration interface.
+Before the project, the business already had a WordPress landing page and a separate PHP-based system for managing dishes. Customer-facing information, menu management, and operational workflows lived in different places and were difficult to keep synchronized.
+
+The goal was to create one platform where customers could understand the service, configure a subscription, select their meals, complete payment, and where the business could manage the rules behind that experience from a central administration interface.
 
 ## My role
 
 I developed the platform end to end between November 2024 and February 2026.
 
-My work covered the customer-facing application, CMS architecture, business rules, checkout and payments, menu management, geographic pricing, administrative workflows, deployment, and ongoing maintenance.
+My work covered the customer-facing application, CMS architecture, business rules, menu and subscription flows, geographic pricing, checkout and payment integration, administrative workflows, SEO, deployment, and ongoing maintenance.
 
-The application was built with Next.js and Strapi and deployed as a production system used by the business.
+The application was built with Next.js and Strapi and deployed as a production system for the business.
 
 ## The challenge
 
-The difficult part of the project was not simply displaying menus online.
+The main challenge was not simply putting a menu online.
 
-Comidas Bracamonte operates a subscription-based meal service where pricing, availability, and recommendations depend on where the customer lives.
+Comidas Bracamonte runs a subscription-based meal service where the customer's location affects pricing, availability, and the meal-selection experience.
 
-The initial implementation organized many of these rules around Spanish provinces. In practice, that was too coarse.
+The first version of the geographic model was based largely on Spanish provinces. That eventually proved too broad for the way the business actually operates.
 
-A town physically close to the business could belong to another province, while locations within the same province could have very different delivery conditions. The platform therefore evolved toward postal-code-based rules.
+A town close to the service base can belong to a different province, while two locations inside the same province may have very different delivery conditions.
 
-This allowed the business to model service areas based on actual proximity and operational needs rather than administrative boundaries.
+The geographic rules therefore evolved from province-based logic toward postal-code-based configuration.
+
+This allowed the platform to model service areas according to actual proximity and operational requirements rather than relying only on administrative boundaries.
 
 ## Subscription and menu flow
 
-The customer journey starts by entering a postal code.
+The customer journey begins with a postal code.
 
-The platform uses that location to determine the applicable pricing and the dishes available for that area.
+That location is used to determine the rules and pricing that apply to the customer.
 
-Customers then choose between five or seven weekly services. That choice, together with their postal code, determines the subscription price.
+The customer then selects either five or seven services per week. The combination of service frequency and postal code determines the subscription price.
 
-After selecting the service, the customer configures their meals from the dishes available for their location.
+From there, the customer chooses meals from the dishes available for that location and configures their menu across a five-week cycle.
 
-Menus are prepared across a five-week cycle, after which the customer proceeds to checkout.
+Once the menu is complete, the customer proceeds through checkout and pays for the monthly subscription in advance.
 
-The subscription is billed monthly and paid in advance. The system also handles adjustments for customers joining during an active period and calculates refund amounts when a cancellation requires one.
+The subscription logic also supports adjustments for the first month when a customer starts partway through a service period, as well as refund calculations when a cancellation requires money to be returned.
 
-## Geographic pricing
+## Postal-code pricing
 
-Rather than storing a completely separate price for every location, I designed the pricing model around a default price with explicit postal-code exceptions.
+One of the important changes during the project was redesigning how geographic pricing was represented.
 
-This made the system easier for the business to manage while still allowing nearby towns or specific delivery areas to receive different pricing, including discounts based on proximity.
+Rather than maintaining a separate complete price configuration for every postal code, I implemented a default price with explicit exceptions for locations that required different pricing.
 
-The business can create and update these exceptions directly from the administration interface without requiring a code change or deployment.
+This allowed the business to apply discounts or other price variations to specific nearby areas without duplicating the entire pricing model.
+
+The rules remain manageable from the administration interface, so routine changes do not require modifying application code or deploying a new version.
 
 ## Recommended menus
 
-Selecting every meal individually across several weeks can require a significant amount of interaction.
+Selecting meals individually across several weeks can involve a large number of choices.
 
-To simplify that process, I built a custom Strapi plugin that allows the business to prepare recommended sets of dishes for one or more postal codes.
+To reduce that friction, I developed a custom Strapi plugin that allows the business to prepare recommended meal sets for one or more postal codes.
 
-The business can define weekly meal selections based on combinations that perform well for a particular service area.
+The business can configure weekly combinations based on the dishes it wants to recommend for those locations, including combinations informed by what sells well.
 
-When a customer chooses **Use recommended**, the platform preloads the configured selection instead of requiring them to go through every week and meal manually.
+When a customer selects **Use recommended**, the application preloads the configured meals across the menu cycle instead of requiring every week and meal to be selected manually.
 
-The recommendation logic remains controlled by the business rather than being hardcoded into the frontend.
+The recommendation logic remains controlled by the business through the CMS rather than being hardcoded into the frontend.
 
 ## CMS-first administration
 
-A major architectural goal was to keep operational rules editable by the business.
+A major architectural goal was to give the business direct control over as much of the product configuration as practical.
 
-Wherever practical, I modeled the platform's configuration inside Strapi instead of embedding business rules directly in application code.
+Where possible, business rules and operational content were modeled in Strapi rather than embedded directly in application code.
 
-The administration area gives the business control over content and operational data while applying restrictions intended to preserve data integrity.
+The administration interface allows the client to manage areas such as dishes, menus, recommendations, coupons, geographic pricing exceptions, and other content used throughout the purchase flow.
 
-This includes the ability to manage areas such as menus, dishes, price exceptions, recommendations, coupons, and other information required by the customer flow.
+Administrative restrictions and validation were also applied to help protect the integrity of the underlying data.
 
-The result is a system where changes to day-to-day business configuration do not normally require developer intervention.
+This approach lets the business make routine operational changes without depending on developer intervention.
 
 ## Payments
 
-The checkout integrates Redsys as the primary payment provider.
+The checkout integrates Redsys for online payments.
 
-Customers can pay by card or Bizum through the online payment flow.
+Customers can complete payment using card or Bizum.
 
-The platform also supports bank transfer as an alternative. In that case, the order is coordinated through the website and the customer receives the predefined communication needed to complete the payment externally through WhatsApp.
+Bank transfer is also supported as an alternative flow. The order is coordinated through the website, while predefined WhatsApp communication provides the customer with the information required to complete the transfer externally.
 
-The payment flow is connected to the subscription and menu configuration so that the final order reflects the customer's selected service, location, pricing, and meals.
+The final amount reflects the customer's location, selected weekly service frequency, subscription rules, and applicable pricing configuration.
 
-## From checkout to kitchen operations
+## Connecting checkout to kitchen operations
 
-The application also connects the customer-facing flow with the operational side of the service.
+The platform also needed to bridge the online purchase flow with the physical preparation of meals.
 
-After a successful order, the system generates a PDF containing the customer's menu selection.
+After the customer's menu and order are completed, the system generates a PDF containing the selected meals.
 
-That document is used by the kitchen service provider as the basis for preparing the customer's meals.
+That document is provided to the kitchen service provider and becomes part of the operational workflow used to prepare the customer's food.
 
-This means the platform does more than collect an online payment: it carries the customer's configuration through to a format that can be used in the physical fulfillment process.
+This allowed the digital flow to continue beyond checkout and produce information directly usable by the fulfillment side of the business.
 
 ## Technical decisions
 
-Several decisions in the project were driven by maintainability and business autonomy.
+Several architectural decisions were shaped by the need to keep the system maintainable while giving the client operational independence.
 
-Using postal codes instead of provinces made the geographic rules match the way the service actually operates.
+Moving from provinces to postal codes aligned geographic rules more closely with how the service actually works.
 
-Using a default price with explicit exceptions avoided maintaining redundant pricing data for every possible location.
+Using a default price with explicit exceptions reduced redundant pricing configuration while still supporting local variations.
 
-Keeping recommendations and operational configuration inside Strapi allowed the business to change its offering without modifying application code.
+Keeping menus, recommendations, pricing rules, and other operational content inside Strapi made those workflows editable without requiring code changes.
 
-The custom recommendation plugin extended the CMS for a workflow that was specific to the business instead of forcing the team to manage that information through generic content fields.
+The custom recommendation plugin extended the CMS specifically for the client's workflow instead of forcing that process into generic content-management screens or hardcoded frontend logic.
 
 ## Result
 
-The platform was deployed to production and replaced a much more fragmented way of managing the business online.
+The completed platform brought previously disconnected customer and operational workflows into a single production application.
 
-Customers can move through location validation, service selection, meal configuration, payment, and order generation in one connected flow.
+Customers can move through postal-code validation, subscription configuration, meal selection, payment, and order generation as one connected process.
 
-The business can manage its content, menus, recommendations, geographic price exceptions, and related configuration from the administration interface without depending on a deployment for routine changes.
+The business can independently manage menus, dishes, recommendations, coupons, geographic pricing exceptions, and related configuration through its administration interface.
 
-I continued maintaining the platform through February 2026.
-
-## Technology
-
-Next.js, React, Strapi, payment integrations, Redsys, REST APIs, CMS customization, PDF generation, SEO, Linux/VPS deployment.
-
-## Ongoing maintenance
-
-I continued maintaining the platform through February 2026.
-
-The final maintenance update added JSON-LD structured data to strengthen the site's machine-readable SEO metadata and improve how its content could be understood by search engines and other structured-data consumers.
-
----
-
-TODO: Add public customer-flow screenshots.
-
-TODO: Add a sanitized Strapi administration screenshot.
-
-TODO: If available, add a sanitized screenshot of the custom recommendation plugin.
+I continued maintaining the application after its initial delivery. The final maintenance update in February 2026 added JSON-LD structured data to improve the site's machine-readable SEO metadata.

@@ -42,21 +42,37 @@ export type Technology =
   | "Strapi"
   | "Payload CMS"
   | "MongoDB"
-  | "Stripe Connect";
+  | "Stripe"
+  | "Wise API"
+  | "Google OAuth"
+  | "Leaflet"
+  | "OpenStreetMap";
 
 export type Capability =
   | "authentication"
   | "checkout"
   | "cms-managed-content"
   | "coupons"
+  | "custom-admin-fields"
   | "deployment-infrastructure"
+  | "digital-member-identification"
+  | "email-template-management"
+  | "event-management"
+  | "forms-and-submissions"
+  | "json-ld"
   | "legal-content"
+  | "location-management"
+  | "marketplace-financial-state"
+  | "memberships"
   | "multilingual-content"
+  | "oauth"
   | "payments"
+  | "payouts"
   | "rankings"
   | "responsive-frontend"
   | "seo"
   | "shipping-validation"
+  | "sitemap"
   | "structured-content"
   | "subscriptions"
   | "webhooks"
@@ -97,7 +113,11 @@ interface ProjectBase {
   responsibilities: readonly string[];
   technologies: readonly Technology[];
   capabilities: readonly Capability[];
-  contentLanguages?: readonly string[];
+  contentLanguage?: {
+    primary: string;
+    selectedAdditionalContent?: readonly string[];
+    fullInternationalization: boolean;
+  };
   publicUrl?: ExternalUrl;
   sourceCode: SourceCode;
   relatedProjects?: readonly {
