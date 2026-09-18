@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Container } from "@/components/layout/container";
 import { PageIntro } from "@/components/layout/page-intro";
 import { ProjectCard } from "@/components/projects/project-card";
@@ -6,6 +7,14 @@ import {
   getFeaturedProjects,
   getSecondaryProjects,
 } from "@/content/projects";
+import { createPageMetadata } from "@/content/site";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Projects",
+  description:
+    "Selected client and product work by Daniel Gonzalez Cuetara across full-stack applications, CMS platforms, payments, subscriptions, APIs, and deployment.",
+  path: "/projects",
+});
 
 export default function ProjectsPage() {
   const featuredProjects = getFeaturedProjects();

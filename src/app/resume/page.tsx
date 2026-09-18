@@ -1,9 +1,18 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import { Container } from "@/components/layout/container";
 import { ButtonLink } from "@/components/ui/button-link";
 import { professionalProfile } from "@/content/profile";
 import { getProjectBySlug } from "@/content/projects";
+import { createPageMetadata } from "@/content/site";
+
+export const metadata: Metadata = createPageMetadata({
+  title: "Resume",
+  description:
+    "Software development experience, technologies, projects, education, and resume downloads for Daniel Gonzalez Cuetara.",
+  path: "/resume",
+});
 
 const technologyGroups = [
   {

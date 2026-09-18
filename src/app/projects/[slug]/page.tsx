@@ -1,7 +1,9 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { createElement } from "react";
 import { Container } from "@/components/layout/container";
+import { JsonLd } from "@/components/seo/json-ld";
 import { ButtonLink } from "@/components/ui/button-link";
 import {
   getCaseStudyBySlug,
@@ -18,15 +20,39 @@ import {
   getProjectBySlug,
   hasCaseStudy,
 } from "@/content/projects";
+import { createPageMetadata } from "@/content/site";
+import { createCaseStudyBreadcrumbs } from "@/content/structured-data";
 import type { FeaturedProject } from "@/content/types";
 
 export function generateStaticParams() {
   return getAllProjects()
-    .filter(
-      (project) =>
-        hasCaseStudy(project) && hasCaseStudyContent(project.slug),
+    .filter((project) =>
+      hasCaseStudy(project) && hasCaseStudyContent(project.slug),
     )
     .map((project) => ({ slug: project.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const project = getProjectBySlug(slug);
+
+  if (
+    !project ||
+    !hasCaseStudy(project) ||
+    !hasCaseStudyContent(project.slug)
+  ) {
+    notFound();
+  }
+
+  return createPageMetadata({
+    title: project.title,
+    description: project.shortDescription,
+    path: `/projects/${project.slug}`,
+  });
 }
 
 function getDeliveryLabel(project: FeaturedProject): string {
@@ -49,9 +75,11 @@ export default async function ProjectCaseStudyPage({
   }
 
   const caseStudy = createElement(caseStudyComponent);
+  const breadcrumbs = createCaseStudyBreadcrumbs(project.title, project.slug);
 
   return (
     <article>
+      <JsonLd data={breadcrumbs} />
       <header className="border-b border-border py-12 sm:py-16 lg:py-20">
         <Container>
           <Link
