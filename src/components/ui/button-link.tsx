@@ -8,6 +8,7 @@ interface ButtonLinkProps {
   external?: boolean;
   newTab?: boolean;
   ariaLabel?: string;
+  download?: string;
 }
 
 const variants = {
@@ -24,10 +25,11 @@ export function ButtonLink({
   external = false,
   newTab = false,
   ariaLabel,
+  download,
 }: ButtonLinkProps) {
   const className = `inline-flex min-h-11 items-center justify-center rounded-sm border px-4 py-2.5 text-sm font-semibold transition-colors duration-150 active:translate-y-px motion-reduce:transition-none ${variants[variant]}`;
 
-  if (external) {
+  if (external || download) {
     return (
       <a
         href={href}
@@ -35,6 +37,7 @@ export function ButtonLink({
         target={newTab ? "_blank" : undefined}
         rel={newTab ? "noopener noreferrer" : undefined}
         aria-label={ariaLabel}
+        download={download}
       >
         {children}
       </a>

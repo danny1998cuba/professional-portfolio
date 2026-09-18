@@ -42,6 +42,14 @@ Once the menu is complete, the customer proceeds through checkout and pays for t
 
 The subscription logic also supports adjustments for the first month when a customer starts partway through a service period, as well as refund calculations when a cancellation requires money to be returned.
 
+<ProjectImage
+  src="/projects/comidas-bracamonte/plan-and-postal-code.webp"
+  alt="Comidas Bracamonte subscription plan selector with postal-code configuration."
+  caption="The purchase flow starts with the service plan and postal code, which drive pricing and location-specific rules."
+  width={1600}
+  height={1022}
+/>
+
 ## Postal-code pricing
 
 One of the important changes during the project was redesigning how geographic pricing was represented.
@@ -64,6 +72,14 @@ When a customer selects **Use recommended**, the application preloads the config
 
 The recommendation logic remains controlled by the business through the CMS rather than being hardcoded into the frontend.
 
+<ProjectImage
+  src="/projects/comidas-bracamonte/weekly-menu-selection.webp"
+  alt="Weekly meal-selection interface for a Comidas Bracamonte subscription."
+  caption="Customers configure dishes across the subscription cycle, with recommended selections available to reduce manual choices."
+  width={1600}
+  height={758}
+/>
+
 ## CMS-first administration
 
 A major architectural goal was to give the business direct control over as much of the product configuration as practical.
@@ -75,6 +91,14 @@ The administration interface allows the client to manage areas such as dishes, m
 Administrative restrictions and validation were also applied to help protect the integrity of the underlying data.
 
 This approach lets the business make routine operational changes without depending on developer intervention.
+
+<ProjectImage
+  src="/projects/comidas-bracamonte/strapi-content-manager.webp"
+  alt="Strapi Content Manager used to operate Comidas Bracamonte."
+  caption="Operational content and business configuration are managed through Strapi rather than being hardcoded into the frontend."
+  width={1600}
+  height={764}
+/>
 
 ## Payments
 

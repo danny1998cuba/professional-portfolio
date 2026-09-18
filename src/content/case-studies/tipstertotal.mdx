@@ -69,6 +69,14 @@ The payout cycle was designed to run twice per month rather than triggering an e
 
 This separated customer billing from analyst settlement and allowed the marketplace to support a broader geographic footprint than the original Stripe Connect design.
 
+<ProjectImage
+  src="/projects/tipstertotal/payouts-and-withdrawals.webp"
+  alt="Tipstertotal analyst balance, payments and withdrawals interface."
+  caption="The product maintained analyst balances, platform fees and payout state inside the application before scheduled settlement."
+  width={1120}
+  height={1180}
+/>
+
 ## Financial state in MongoDB
 
 Because the final architecture did not rely on Stripe Connect as the system of record for each analyst, the application needed to maintain its own financial state.
@@ -90,6 +98,14 @@ Customers needed to discover analysts, review the content and information availa
 The product also included rankings to help organize and surface analysts inside the marketplace.
 
 A customer was not tied to a single analyst and could maintain several analyst subscriptions simultaneously.
+
+<ProjectImage
+  src="/projects/tipstertotal/analyst-marketplace.webp"
+  alt="Tipstertotal analyst marketplace showing multiple analyst subscription profiles."
+  caption="Customers could discover and subscribe independently to multiple analysts, each with their own pricing and specialization."
+  width={790}
+  height={1000}
+/>
 
 ## Subscriptions and recurring workflows
 

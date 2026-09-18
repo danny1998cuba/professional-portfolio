@@ -1,5 +1,6 @@
 import type { MDXComponents } from "mdx/types";
 import type { ComponentPropsWithoutRef } from "react";
+import { ProjectImage } from "@/components/projects/project-image";
 
 function MdxLink({ href, ...props }: ComponentPropsWithoutRef<"a">) {
   const isExternal =
@@ -17,6 +18,7 @@ function MdxLink({ href, ...props }: ComponentPropsWithoutRef<"a">) {
 }
 
 const components: MDXComponents = {
+  ProjectImage,
   h2: (props) => (
     <h2
       className="type-section-heading mt-12 scroll-mt-28 text-balance first:mt-0"
