@@ -16,7 +16,7 @@ export function SiteFooter() {
             href={professionalProfile.links.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-sm font-medium text-accent underline decoration-transparent underline-offset-4 transition-colors duration-150 hover:text-accent-strong hover:decoration-current active:translate-y-px motion-reduce:transition-none"
+            className="inline-flex min-h-11 items-center rounded-sm font-medium text-accent underline decoration-transparent underline-offset-4 transition-colors duration-150 hover:text-accent-strong hover:decoration-current active:translate-y-px motion-reduce:transition-none"
             aria-label="Daniel Gonzalez Cuetara on GitHub (opens in a new tab)"
           >
             GitHub

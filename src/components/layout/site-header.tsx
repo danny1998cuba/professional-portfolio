@@ -9,7 +9,7 @@ const navigation = [
 ] as const;
 
 const linkStyles =
-  "rounded-sm px-2 py-1.5 text-sm font-medium text-muted underline-offset-4 transition-colors duration-150 hover:text-foreground hover:underline active:translate-y-px motion-reduce:transition-none";
+  "inline-flex min-h-11 items-center rounded-sm px-2 text-sm font-medium text-muted underline-offset-4 transition-colors duration-150 hover:text-foreground hover:underline active:translate-y-px motion-reduce:transition-none";
 
 export function SiteHeader() {
   return (
@@ -17,7 +17,7 @@ export function SiteHeader() {
       <Container className="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
         <Link
           href="/"
-          className="w-fit rounded-sm text-base font-semibold tracking-[-0.02em] underline-offset-4 transition-colors duration-150 hover:text-accent hover:underline active:translate-y-px motion-reduce:transition-none"
+          className="inline-flex min-h-11 w-fit items-center rounded-sm text-base font-semibold tracking-[-0.02em] underline-offset-4 transition-colors duration-150 hover:text-accent hover:underline active:translate-y-px motion-reduce:transition-none"
         >
           {professionalProfile.name}
         </Link>
