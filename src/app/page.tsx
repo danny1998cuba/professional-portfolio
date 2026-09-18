@@ -1,5 +1,5 @@
 import { Container } from "@/components/layout/container";
-import { FeaturedProjectCard } from "@/components/projects/featured-project-card";
+import { ProjectCard } from "@/components/projects/project-card";
 import { ButtonLink } from "@/components/ui/button-link";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { professionalProfile } from "@/content/profile";
@@ -124,7 +124,7 @@ export default function Home() {
 
           <div className="mt-9 grid gap-5 lg:grid-cols-3">
             {featuredProjects.map((project) => (
-              <FeaturedProjectCard key={project.slug} project={project} />
+              <ProjectCard key={project.slug} project={project} />
             ))}
           </div>
         </Container>

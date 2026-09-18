@@ -2,6 +2,7 @@ import type {
   CaseStudyMetadata,
   FeaturedProject,
   Project,
+  SecondaryProject,
 } from "./types";
 
 export const projects = [
@@ -163,9 +164,120 @@ export const projects = [
       available: true,
     },
   },
+  {
+    slug: "gas-tracker",
+    title: "Gas Tracker",
+    shortDescription:
+      "Offline-first mobile application for tracking work trips, fuel costs, driver balances, payments and reports, with local data persistence and backup workflows.",
+    classification: "personal",
+    type: "mobile-application",
+    featured: false,
+    technologies: [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "SQLite",
+      "Drizzle ORM",
+      "TanStack Query",
+      "React Hook Form",
+      "Zod",
+    ],
+    sourceCode: {
+      availability: "public",
+      repositoryUrl: "https://github.com/danny1998cuba/gas-tracker",
+    },
+    externalActions: [
+      {
+        label: "View source",
+        url: "https://github.com/danny1998cuba/gas-tracker",
+      },
+    ],
+  },
+  {
+    slug: "sonner-next-intl",
+    title: "sonner-next-intl",
+    shortDescription:
+      "Open-source package that adds internationalized Sonner toast notifications to Next.js applications through a small reusable API, with documentation and a working example application.",
+    classification: "open-source",
+    type: "developer-tool",
+    featured: false,
+    technologies: ["Next.js", "TypeScript", "next-intl", "Sonner", "npm"],
+    sourceCode: {
+      availability: "public",
+      repositoryUrl: "https://github.com/corex4dev/sonner-next-intl",
+    },
+    externalActions: [
+      {
+        label: "Docs",
+        url: "https://sonner-next-intl.vercel.app",
+      },
+      {
+        label: "GitHub",
+        url: "https://github.com/corex4dev/sonner-next-intl",
+      },
+      {
+        label: "npm",
+        url: "https://www.npmjs.com/package/sonner-next-intl",
+      },
+    ],
+  },
+  {
+    slug: "corex4dev",
+    title: "CoreX4Dev",
+    shortDescription:
+      "Active Spanish-language developer platform combining practical technical content, open-source projects and video tutorials about modern web development.",
+    classification: "technical-initiative",
+    type: "website",
+    featured: false,
+    technologies: [
+      "Next.js",
+      "React",
+      "Technical Writing",
+      "Developer Education",
+    ],
+    sourceCode: {
+      availability: "not-published",
+    },
+    externalActions: [
+      {
+        label: "Visit CoreX4Dev",
+        url: "https://corex4dev.com",
+      },
+    ],
+  },
+  {
+    slug: "pixeldrain-uploader",
+    title: "Pixeldrain Uploader",
+    shortDescription:
+      "Windows desktop utility for sending large files directly to a Pixeldrain account without sharing the account credentials. Built around a revocable API key, a persistent local upload queue, and direct synchronization with Pixeldrain through its API.",
+    classification: "personal",
+    type: "desktop-application",
+    featured: false,
+    technologies: [
+      "React",
+      "TypeScript",
+      "Express.js",
+      "Electron",
+      "Pixeldrain API",
+    ],
+    sourceCode: {
+      availability: "public",
+      repositoryUrl: "https://github.com/danny1998cuba/pixeldrain-uploader",
+    },
+    externalActions: [
+      {
+        label: "View source",
+        url: "https://github.com/danny1998cuba/pixeldrain-uploader",
+      },
+      {
+        label: "View releases",
+        url: "https://github.com/danny1998cuba/pixeldrain-uploader/releases",
+      },
+    ],
+  },
 ] as const satisfies readonly Project[];
 
-export type ProjectWithCaseStudy = Project & {
+export type ProjectWithCaseStudy = FeaturedProject & {
   caseStudy: CaseStudyMetadata;
 };
 
@@ -177,6 +289,12 @@ export function getFeaturedProjects(): readonly FeaturedProject[] {
   return projects.filter(
     (project): project is (typeof projects)[number] & FeaturedProject =>
       project.featured,
+  );
+}
+
+export function getSecondaryProjects(): readonly SecondaryProject[] {
+  return getAllProjects().filter(
+    (project): project is SecondaryProject => !project.featured,
   );
 }
 

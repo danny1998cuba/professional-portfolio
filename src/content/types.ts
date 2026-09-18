@@ -22,12 +22,18 @@ type Day =
 export type YearMonth = `${number}-${Month}`;
 export type IsoDate = `${YearMonth}-${Day}`;
 
-export type ProjectClassification = "client" | "personal" | "experimental";
+export type ProjectClassification =
+  | "client"
+  | "personal"
+  | "open-source"
+  | "technical-initiative"
+  | "experimental";
 
 export type ProjectType =
   | "web-application"
   | "website"
   | "mobile-application"
+  | "desktop-application"
   | "developer-tool";
 
 export type ProjectStatus =
@@ -46,7 +52,23 @@ export type Technology =
   | "Wise API"
   | "Google OAuth"
   | "Leaflet"
-  | "OpenStreetMap";
+  | "OpenStreetMap"
+  | "React Native"
+  | "Expo"
+  | "TypeScript"
+  | "SQLite"
+  | "Drizzle ORM"
+  | "TanStack Query"
+  | "React Hook Form"
+  | "Zod"
+  | "next-intl"
+  | "Sonner"
+  | "npm"
+  | "Technical Writing"
+  | "Developer Education"
+  | "Express.js"
+  | "Electron"
+  | "Pixeldrain API";
 
 export type Capability =
   | "authentication"
@@ -94,25 +116,19 @@ export interface CaseStudyMetadata {
   facts?: readonly string[];
 }
 
+export interface ExternalProjectAction {
+  label: string;
+  url: ExternalUrl;
+}
+
 interface ProjectBase {
   slug: string;
   title: string;
   shortDescription: string;
   classification: ProjectClassification;
   type: ProjectType;
-  status: ProjectStatus;
-  period: {
-    start: YearMonth;
-    end: YearMonth;
-  };
   lastUpdated?: IsoDate;
-  delivery: {
-    scope: "end-to-end";
-    soleDeveloper?: true;
-  };
-  responsibilities: readonly string[];
   technologies: readonly Technology[];
-  capabilities: readonly Capability[];
   contentLanguage?: {
     primary: string;
     selectedAdditionalContent?: readonly string[];
@@ -129,12 +145,24 @@ interface ProjectBase {
 
 export interface FeaturedProject extends ProjectBase {
   featured: true;
+  status: ProjectStatus;
+  period: {
+    start: YearMonth;
+    end: YearMonth;
+  };
+  delivery: {
+    scope: "end-to-end";
+    soleDeveloper?: true;
+  };
+  responsibilities: readonly string[];
+  capabilities: readonly Capability[];
   caseStudy: CaseStudyMetadata;
 }
 
 export interface SecondaryProject extends ProjectBase {
   featured: false;
-  caseStudy?: CaseStudyMetadata;
+  externalActions: readonly ExternalProjectAction[];
+  caseStudy?: never;
 }
 
 export type Project = FeaturedProject | SecondaryProject;
