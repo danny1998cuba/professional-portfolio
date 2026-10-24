@@ -1,4 +1,5 @@
 import { Container } from "@/components/layout/container";
+import { EngineeringVisual } from "@/components/home/engineering-visual";
 import { ProjectCard } from "@/components/projects/project-card";
 import { ButtonLink } from "@/components/ui/button-link";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -38,37 +39,59 @@ export default function Home() {
   return (
     <>
       <section
-        className="border-b border-border py-14 sm:py-16 lg:py-20"
+        className="border-b border-border/40 py-8 sm:py-12 lg:py-14"
         aria-labelledby="homepage-heading"
       >
-        <Container>
-          <div className="max-w-5xl">
-            <p className="type-meta text-accent">
+        <Container className="grid items-center gap-8 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:gap-10 xl:gap-12">
+          <div className="min-w-0 max-w-2xl lg:max-w-none">
+            <p className="type-meta inline-flex items-center gap-2 rounded-full border border-accent/10 bg-surface-tint px-3 py-1 text-accent-strong">
+              <span
+                className="size-1.5 shrink-0 rounded-full bg-accent"
+                aria-hidden="true"
+              />
               {professionalProfile.location}
             </p>
-            <h1 id="homepage-heading" className="type-display mt-5 text-balance">
-              Full-stack software developer building production web
-              applications end to end.
+            <h1
+              id="homepage-heading"
+              className="type-display mt-5 text-[1.875rem] leading-[1.1] text-balance min-[375px]:text-[2rem] sm:text-[2.5rem] lg:text-[3.25rem] lg:leading-[1.08]"
+            >
+              Full-stack software developer building{" "}
+              <span className="text-accent">production web applications</span>{" "}
+              <span className="whitespace-nowrap">end to end.</span>
             </h1>
-            <p className="type-body mt-7 max-w-3xl text-pretty text-muted">
+            <p className="type-body mt-5 max-w-xl text-pretty text-muted lg:mt-6">
               I work across frontend, backend, CMS integrations, payments,
               APIs, and deployment — turning real product requirements into
               maintainable software.
             </p>
 
-            <p className="type-body-small mt-6 inline-flex rounded-full border border-border bg-surface px-3 py-1.5 font-medium text-foreground">
+            <p className="type-caption mt-4 inline-flex rounded-full border border-border/60 bg-surface px-3 py-1.5 font-medium text-muted">
               Canadian permanent resident · No sponsorship required
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              <ButtonLink href="/projects">View projects</ButtonLink>
+            <div className="mt-5 flex flex-wrap gap-2 sm:gap-3 [&>a]:px-4 sm:[&>a]:px-5">
+              <ButtonLink href="/projects">
+                View projects{" "}
+                <span className="hidden sm:inline" aria-hidden="true">→</span>
+              </ButtonLink>
               <ButtonLink href="/resume" variant="secondary">
                 View resume
+                <svg
+                  className="hidden size-4 sm:block"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.25"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path d="M11.5 2.5H5a1 1 0 0 0-1 1v13a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V7m-4.5-4.5L16 7h-4.5V2.5ZM7 10h6m-6 3h6" />
+                </svg>
               </ButtonLink>
             </div>
 
             <nav
-              className="mt-6"
+              className="mt-3"
               aria-label="Professional profiles and contact"
             >
               <ul className="flex flex-wrap gap-x-5 gap-y-1 text-sm">
@@ -102,6 +125,7 @@ export default function Home() {
               </ul>
             </nav>
           </div>
+          <EngineeringVisual />
         </Container>
       </section>
 
