@@ -30,7 +30,6 @@ export const projects = [
     ],
     technologies: ["Next.js", "React", "Strapi"],
     capabilities: [
-      "multilingual-content",
       "weekly-menus",
       "checkout",
       "shipping-validation",
