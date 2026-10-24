@@ -5,6 +5,7 @@ interface PageIntroProps {
   title: string;
   description: string;
   display?: boolean;
+  size?: "site" | "reading";
 }
 
 export function PageIntro({
@@ -12,10 +13,11 @@ export function PageIntro({
   title,
   description,
   display = false,
+  size = "reading",
 }: PageIntroProps) {
   return (
     <section className="page-section">
-      <Container size="reading">
+      <Container size={size}>
         <p className="section-eyebrow type-meta text-accent">{eyebrow}</p>
         <h1
           className={`${display ? "type-display" : "type-page-heading"} mt-4 text-balance`}
