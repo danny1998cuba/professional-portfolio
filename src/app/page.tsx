@@ -1,5 +1,6 @@
 import { Container } from "@/components/layout/container";
 import { EngineeringVisual } from "@/components/home/engineering-visual";
+import { DeliveryVisual } from "@/components/home/delivery-visual";
 import { ProjectCard } from "@/components/projects/project-card";
 import { ButtonLink } from "@/components/ui/button-link";
 import { SectionHeading } from "@/components/ui/section-heading";
@@ -9,21 +10,29 @@ import { getFeaturedProjects } from "@/content/projects";
 const capabilityGroups = [
   {
     title: "Product interfaces",
+    iconPath: "M4 4h16v12H4zM8 20h8m-4-4v4",
+    technologies: ["React", "Next.js", "TypeScript"],
     description:
       "Responsive application interfaces built with React, Next.js, Angular, and modern TypeScript patterns.",
   },
   {
     title: "Backend & APIs",
+    iconPath: "M8 8 4 12l4 4m8-8 4 4-4 4m-3-11-2 14",
+    technologies: ["Node.js", "REST APIs"],
     description:
       "REST APIs, application services, webhooks, data flows, and backend integrations using Node.js and related frameworks.",
   },
   {
     title: "CMS, payments & authentication",
+    iconPath: "M4 5h16v14H4zM4 9h16M8 15h4m4-2v4m-2-2h4",
+    technologies: ["Strapi", "Payload", "Stripe"],
     description:
       "Headless CMS implementations and product integrations involving Strapi, Payload, Stripe, authentication providers, and business workflows.",
   },
   {
     title: "Delivery & infrastructure",
+    iconPath: "M7 18a4 4 0 0 1-1-7.9 6 6 0 0 1 11.6-1.6A4.5 4.5 0 0 1 18 18H7Z",
+    technologies: ["Linux", "Docker", "Nginx"],
     description:
       "Practical deployment and operations across Linux servers, Docker, Nginx, process management, and self-hosted web infrastructure.",
   },
@@ -130,7 +139,7 @@ export default function Home() {
       </section>
 
       <section
-        className="py-16 sm:py-20 lg:py-24"
+        className="pt-12 pb-14 sm:pt-16 sm:pb-16 lg:pt-18 lg:pb-20"
         aria-labelledby="featured-work-heading"
       >
         <Container>
@@ -146,16 +155,18 @@ export default function Home() {
             </ButtonLink>
           </div>
 
-          <div className="mt-9 grid gap-5 lg:grid-cols-3">
+          <ul className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {featuredProjects.map((project) => (
-              <ProjectCard key={project.slug} project={project} />
+              <li key={project.slug} className="min-w-0">
+                <ProjectCard project={project} />
+              </li>
             ))}
-          </div>
+          </ul>
         </Container>
       </section>
 
       <section
-        className="border-y border-border bg-surface py-16 sm:py-20 lg:py-24"
+        className="pb-14 sm:pb-16 lg:pb-20"
         aria-labelledby="capabilities-heading"
       >
         <Container>
@@ -166,16 +177,30 @@ export default function Home() {
             description="Product-focused software across interfaces, services, integrations, and the infrastructure required to operate it."
           />
 
-          <div className="mt-10 grid gap-x-8 gap-y-9 md:grid-cols-2">
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
             {capabilityGroups.map((capability) => (
               <article
                 key={capability.title}
-                className="border-t border-border pt-5"
+                className="flex min-w-0 flex-col rounded-2xl border border-border/40 bg-surface p-5 shadow-soft sm:p-6"
               >
-                <h3 className="type-card-heading">{capability.title}</h3>
-                <p className="type-body-small mt-3 max-w-xl text-pretty text-muted">
+                <div className="flex size-10 items-center justify-center rounded-xl bg-surface-tint text-accent" aria-hidden="true">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" focusable="false">
+                    <path d={capability.iconPath} />
+                  </svg>
+                </div>
+                <h3 className="mt-5 text-[1.0625rem] leading-6 font-semibold tracking-[-0.01em]">{capability.title}</h3>
+                <p className="type-body-small mt-3 text-pretty text-muted">
                   {capability.description}
                 </p>
+                <div className="mt-auto pt-6">
+                  <ul className="flex flex-wrap gap-1.5 border-t border-border/30 pt-4" aria-label={`${capability.title} technologies`}>
+                    {capability.technologies.map((technology) => (
+                      <li key={technology} className="rounded-md bg-surface-tint px-2 py-1 font-mono text-[0.6875rem] text-muted">
+                        {technology}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </article>
             ))}
           </div>
@@ -183,38 +208,43 @@ export default function Home() {
       </section>
 
       <section
-        className="py-16 sm:py-20 lg:py-24"
+        className="pb-14 sm:pb-16 lg:pb-20"
         aria-labelledby="approach-heading"
       >
-        <Container size="reading">
-          <h2 id="approach-heading" className="type-section-heading">
-            From requirements to production
-          </h2>
-          <div className="type-body mt-6 space-y-5 text-pretty text-muted">
-            <p>
-              My strongest work has involved owning complete client
-              applications: understanding the business rules, building the
-              interface and backend integrations, shaping CMS workflows, and
-              supporting the product through deployment and maintenance.
-            </p>
-            <p>
-              I am comfortable working full-stack, while also being a strong
-              fit for frontend-heavy roles where product UI, component
-              architecture, API integration, and responsive implementation are
-              central.
-            </p>
+        <Container>
+          <div className="grid items-center gap-8 rounded-3xl border border-border/40 bg-surface-tint/70 p-5 sm:p-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-10 lg:p-10">
+            <div className="min-w-0 lg:order-2">
+              <h2 id="approach-heading" className="type-section-heading">
+                From requirements to production
+              </h2>
+              <div className="type-body mt-6 space-y-5 text-pretty text-muted">
+                <p>
+                  My strongest work has involved owning complete client
+                  applications: understanding the business rules, building the
+                  interface and backend integrations, shaping CMS workflows, and
+                  supporting the product through deployment and maintenance.
+                </p>
+                <p>
+                  I am comfortable working full-stack, while also being a strong
+                  fit for frontend-heavy roles where product UI, component
+                  architecture, API integration, and responsive implementation are
+                  central.
+                </p>
+              </div>
+            </div>
+            <DeliveryVisual />
           </div>
         </Container>
       </section>
 
       <section
-        className="border-t border-border py-16 sm:py-20"
+        className="pb-14 sm:pb-16 lg:pb-20"
         aria-labelledby="availability-heading"
       >
         <Container>
-          <div className="rounded-sm border border-border bg-surface p-6 sm:p-8 lg:flex lg:items-end lg:justify-between lg:gap-10">
+          <div className="grid items-center gap-7 rounded-3xl border border-border/40 bg-surface p-5 shadow-soft sm:p-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-10 lg:p-9">
             <div className="max-w-2xl">
-              <p className="type-meta text-accent">Availability</p>
+              <p className="section-eyebrow type-meta text-accent">Availability</p>
               <h2
                 id="availability-heading"
                 className="type-section-heading mt-3 text-balance"
@@ -226,13 +256,16 @@ export default function Home() {
                 developer opportunities in Canada, including remote roles and
                 positions compatible with Kingston, Ontario.
               </p>
-              <p className="type-body-small mt-4 font-medium text-foreground">
+              <p className="type-body-small mt-4 inline-flex rounded-full border border-accent/15 bg-surface-tint px-3 py-1.5 font-medium text-accent-strong">
                 Canadian permanent resident · No sponsorship required
               </p>
             </div>
 
-            <div className="mt-7 flex flex-wrap gap-3 lg:mt-0 lg:shrink-0">
+            <div className="flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
               <ButtonLink href={emailHref} external>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+                  <path d="M3 5h18v14H3zM3 6l9 7 9-7" />
+                </svg>
                 Email me
               </ButtonLink>
               <ButtonLink
