@@ -11,27 +11,27 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 const professionalLinkStyles =
-  "inline-flex min-h-11 items-center rounded-sm font-semibold text-accent underline decoration-transparent underline-offset-4 transition-colors duration-150 hover:text-accent-strong hover:decoration-current active:translate-y-px motion-reduce:transition-none";
+  "inline-flex min-h-11 items-center gap-1.5 rounded-sm text-sm font-semibold text-accent underline decoration-transparent underline-offset-4 transition-colors duration-150 hover:text-accent-strong hover:decoration-current active:translate-y-px motion-reduce:transition-none";
 
 export default function AboutPage() {
   const emailHref = `mailto:${professionalProfile.email}`;
 
   return (
     <>
-      <header className="page-section border-b border-border">
-        <Container size="reading">
-          <h1 className="type-page-heading text-balance">About</h1>
+      <header className="pt-12 pb-8 sm:pt-14 sm:pb-10 lg:pt-16 lg:pb-12">
+        <Container>
+          <h1 className="type-display text-balance">About</h1>
         </Container>
       </header>
 
-      <div className="py-14 sm:py-16 lg:py-20">
-        <Container className="grid gap-12 lg:grid-cols-[minmax(0,46rem)_18rem] lg:items-start lg:justify-between">
-          <div className="space-y-12 sm:space-y-14">
+      <div className="pb-14 sm:pb-16 lg:pb-20">
+        <Container className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start lg:gap-14">
+          <div className="min-w-0 max-w-[42rem] space-y-10 [overflow-wrap:anywhere] sm:space-y-12">
             <section aria-labelledby="product-needs-heading">
-              <h2 id="product-needs-heading" className="type-section-heading text-balance">
+              <h2 id="product-needs-heading" className="text-[1.75rem] leading-[1.2] font-bold tracking-[-0.025em] text-balance before:mb-5 before:block before:h-0.5 before:w-6 before:rounded-full before:bg-accent before:content-[''] sm:text-[2rem] lg:text-[2.25rem]">
                 I build software around real product needs
               </h2>
-              <div className="type-body mt-6 space-y-5 text-pretty text-muted">
+              <div className="type-body mt-5 space-y-4 leading-[1.75] text-pretty text-muted">
                 <p>
                   I’m a full-stack software developer based in Kingston,
                   Ontario, with a background in Computer Engineering and
@@ -50,11 +50,11 @@ export default function AboutPage() {
               </div>
             </section>
 
-            <section className="border-t border-border pt-12 sm:pt-14" aria-labelledby="background-heading">
+            <section className="border-t border-border/40 pt-10 sm:pt-12" aria-labelledby="background-heading">
               <h2 id="background-heading" className="type-section-heading text-balance">
                 From systems and IT to product development
               </h2>
-              <div className="type-body mt-6 space-y-5 text-pretty text-muted">
+              <div className="type-body mt-5 space-y-4 leading-[1.75] text-pretty text-muted">
                 <p>
                   My background started with Computer Engineering, where I
                   worked with databases, web development, networking, servers,
@@ -74,11 +74,11 @@ export default function AboutPage() {
               </div>
             </section>
 
-            <section className="border-t border-border pt-12 sm:pt-14" aria-labelledby="end-to-end-heading">
+            <section className="border-t border-border/40 pt-10 sm:pt-12" aria-labelledby="end-to-end-heading">
               <h2 id="end-to-end-heading" className="type-section-heading text-balance">
                 Building end to end
               </h2>
-              <div className="type-body mt-6 space-y-5 text-pretty text-muted">
+              <div className="type-body mt-5 space-y-4 leading-[1.75] text-pretty text-muted">
                 <p>
                   A large part of my recent work has involved taking client
                   requirements and turning them into complete web products.
@@ -99,11 +99,11 @@ export default function AboutPage() {
               </div>
             </section>
 
-            <section className="border-t border-border pt-12 sm:pt-14" aria-labelledby="work-style-heading">
+            <section className="border-t border-border/40 pt-10 sm:pt-12" aria-labelledby="work-style-heading">
               <h2 id="work-style-heading" className="type-section-heading text-balance">
                 How I like to work
               </h2>
-              <div className="type-body mt-6 space-y-5 text-pretty text-muted">
+              <div className="type-body mt-5 space-y-4 leading-[1.75] text-pretty text-muted">
                 <p>I prefer understanding the problem before choosing the implementation.</p>
                 <p>
                   Sometimes the right answer is a reusable React component.
@@ -124,11 +124,11 @@ export default function AboutPage() {
               </div>
             </section>
 
-            <section className="border-t border-border pt-12 sm:pt-14" aria-labelledby="roles-heading">
+            <section className="rounded-2xl border border-border/40 bg-surface-tint/70 p-5 sm:p-7" aria-labelledby="roles-heading">
               <h2 id="roles-heading" className="type-section-heading text-balance">
                 What I’m looking for
               </h2>
-              <div className="type-body mt-6 space-y-5 text-pretty text-muted">
+              <div className="type-body mt-5 space-y-4 leading-[1.75] text-pretty text-muted">
                 <p>
                   I’m currently looking for frontend, full-stack, or software
                   developer opportunities in Canada.
@@ -147,11 +147,11 @@ export default function AboutPage() {
             </section>
           </div>
 
-          <aside className="rounded-sm border border-border bg-surface p-5 sm:p-6 lg:sticky lg:top-28" aria-labelledby="about-facts-heading">
-            <h2 id="about-facts-heading" className="type-meta text-accent">
+          <aside className="min-w-0 rounded-2xl border border-border/40 bg-surface p-5 shadow-soft sm:p-6 lg:sticky lg:top-28" aria-labelledby="about-facts-heading">
+            <h2 id="about-facts-heading" className="section-eyebrow type-meta text-accent">
               At a glance
             </h2>
-            <dl className="mt-6 space-y-6">
+            <dl className="mt-5 space-y-5 [&>div+div]:border-t [&>div+div]:border-border/30 [&>div+div]:pt-5">
               <div>
                 <dt className="type-meta text-muted">Location</dt>
                 <dd className="type-body-small mt-2 text-foreground">
@@ -178,8 +178,8 @@ export default function AboutPage() {
               </div>
             </dl>
 
-            <nav className="mt-7 border-t border-border pt-5" aria-label="About page contact links">
-              <ul className="flex flex-col items-start gap-1">
+            <nav className="mt-6 border-t border-border/30 pt-3" aria-label="About page contact links">
+              <ul className="flex flex-wrap gap-x-4 gap-y-1">
                 <li>
                   <a
                     href={professionalProfile.links.github}
