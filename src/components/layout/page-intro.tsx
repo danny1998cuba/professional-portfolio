@@ -16,13 +16,13 @@ export function PageIntro({
   return (
     <section className="page-section">
       <Container size="reading">
-        <p className="type-meta text-accent">{eyebrow}</p>
+        <p className="section-eyebrow type-meta text-accent">{eyebrow}</p>
         <h1
           className={`${display ? "type-display" : "type-page-heading"} mt-4 text-balance`}
         >
           {title}
         </h1>
-        <p className="type-body mt-6 max-w-2xl text-pretty text-muted">
+        <p className="type-lead mt-5 max-w-2xl text-pretty text-muted">
           {description}
         </p>
       </Container>
