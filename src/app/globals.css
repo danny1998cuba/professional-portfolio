@@ -1,19 +1,26 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f7f6f2;
+  --background: #f8f9ff;
   --surface: #ffffff;
-  --foreground: #181817;
-  --muted: #686865;
-  --border: #deddd7;
-  --accent: #3157d5;
-  --accent-strong: #2445b5;
+  --surface-tint: #eff4ff;
+  --surface-dark: #0f172a;
+  --foreground: #0b1c30;
+  --muted: #434655;
+  --border: #c3c6d7;
+  --accent: #2563eb;
+  --accent-strong: #004ac6;
+  --feedback-duration: 160ms;
+  --elevation-duration: 200ms;
+  --feedback-easing: cubic-bezier(0.2, 0, 0, 1);
   color-scheme: light;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-surface: var(--surface);
+  --color-surface-tint: var(--surface-tint);
+  --color-surface-dark: var(--surface-dark);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-border: var(--border);
@@ -21,19 +28,29 @@
   --color-accent-strong: var(--accent-strong);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --shadow-soft: 0 1px 3px rgb(11 28 48 / 0.04),
+    0 6px 16px -4px rgb(11 28 48 / 0.03);
 }
 
 @layer base {
   html {
     background: var(--background);
     scroll-behavior: smooth;
+    /* Leave room for the sticky header when native keyboard focus scrolls. */
+    scroll-padding-block-start: min(10rem, 50vh);
   }
 
   body {
     background: var(--background);
     color: var(--foreground);
     font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+    font-size: 0.9375rem;
+    line-height: 1.6;
     text-rendering: optimizeLegibility;
+  }
+
+  main {
+    overflow-wrap: anywhere;
   }
 
   ::selection {
@@ -47,38 +64,123 @@
   }
 }
 
+@layer utilities {
+  .link-feedback {
+    transition: color var(--feedback-duration) var(--feedback-easing),
+      text-decoration-color var(--feedback-duration) var(--feedback-easing),
+      background-color var(--feedback-duration) var(--feedback-easing);
+  }
+
+  .link-feedback:is(:focus-visible, :active) {
+    color: var(--accent-strong);
+    text-decoration-line: underline;
+    text-decoration-color: currentColor;
+  }
+
+  .nav-feedback:is(:focus-visible, :active) {
+    background: var(--surface-tint);
+  }
+
+  .button-feedback {
+    transition: color var(--feedback-duration) var(--feedback-easing),
+      background-color var(--feedback-duration) var(--feedback-easing),
+      border-color var(--feedback-duration) var(--feedback-easing),
+      box-shadow var(--elevation-duration) var(--feedback-easing);
+  }
+
+  .button-primary:is(:focus-visible, :active) {
+    background: var(--accent-strong);
+    border-color: var(--accent-strong);
+  }
+
+  .button-secondary:is(:focus-visible, :active) {
+    background: var(--surface-tint);
+    border-color: var(--accent-strong);
+  }
+
+  .button-feedback:active {
+    box-shadow: inset 0 1px 3px rgb(11 28 48 / 0.18);
+  }
+
+  .project-card-feedback {
+    transition: border-color var(--feedback-duration) var(--feedback-easing),
+      box-shadow var(--elevation-duration) var(--feedback-easing);
+  }
+
+  .project-card-feedback:focus-within {
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+    box-shadow: 0 10px 25px -5px rgb(11 28 48 / 0.08),
+      0 8px 10px -6px rgb(11 28 48 / 0.04);
+  }
+
+  /* Hover feedback is reserved for a precise pointer; every action stays visible. */
+  @media (hover: hover) and (pointer: fine) {
+    .link-feedback:hover {
+      color: var(--accent-strong);
+      text-decoration-line: underline;
+      text-decoration-color: currentColor;
+    }
+
+    .nav-feedback:hover {
+      background: var(--surface-tint);
+    }
+
+    .button-primary:hover {
+      background: var(--accent-strong);
+      border-color: var(--accent-strong);
+    }
+
+    .button-secondary:hover {
+      background: var(--surface-tint);
+      border-color: var(--accent-strong);
+    }
+
+    .project-card-feedback:hover {
+      border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+      box-shadow: 0 10px 25px -5px rgb(11 28 48 / 0.08),
+        0 8px 10px -6px rgb(11 28 48 / 0.04);
+    }
+  }
+
+}
+
 @layer components {
   .type-display {
-    font-size: clamp(2.625rem, 6vw, 4.75rem);
-    font-weight: 650;
-    letter-spacing: -0.05em;
-    line-height: 1;
+    font-size: clamp(2rem, 4.5vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.14;
   }
 
   .type-page-heading {
-    font-size: clamp(2.25rem, 5vw, 3.5rem);
-    font-weight: 650;
-    letter-spacing: -0.04em;
-    line-height: 1.05;
+    font-size: clamp(2rem, 4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.2;
   }
 
   .type-section-heading {
-    font-size: clamp(1.75rem, 3vw, 2.25rem);
-    font-weight: 620;
-    letter-spacing: -0.03em;
-    line-height: 1.15;
-  }
-
-  .type-card-heading {
-    font-size: clamp(1.25rem, 2vw, 1.5rem);
-    font-weight: 620;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.25;
   }
 
+  .type-card-heading {
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+  }
+
+  .type-lead {
+    font-size: clamp(1rem, 1.5vw, 1.125rem);
+    line-height: 1.6;
+  }
+
   .type-body {
     font-size: clamp(1rem, 1.4vw, 1.125rem);
-    line-height: 1.7;
+    line-height: 1.65;
   }
 
   .type-body-small {
@@ -86,17 +188,36 @@
     line-height: 1.6;
   }
 
+  .type-caption {
+    font-size: 0.8125rem;
+    line-height: 1.54;
+  }
+
   .type-meta {
     font-family: var(--font-geist-mono), monospace;
-    font-size: 0.75rem;
-    font-weight: 550;
-    letter-spacing: 0.12em;
-    line-height: 1.5;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    line-height: 1.46;
     text-transform: uppercase;
   }
 
+  .section-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .section-eyebrow::before {
+    content: "";
+    width: 1.5rem;
+    height: 2px;
+    flex-shrink: 0;
+    background: currentColor;
+  }
+
   .page-section {
-    padding-block: clamp(4rem, 8vw, 7rem);
+    padding-block: clamp(3rem, 6vw, 5rem);
   }
 }
 
@@ -108,9 +229,8 @@
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
+    animation: none !important;
     scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
+    transition: none !important;
   }
 }

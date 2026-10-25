@@ -13,7 +13,9 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   return (
     <div className="max-w-2xl">
-      {eyebrow ? <p className="type-meta text-accent">{eyebrow}</p> : null}
+      {eyebrow ? (
+        <p className="section-eyebrow type-meta text-accent">{eyebrow}</p>
+      ) : null}
       <h2
         id={id}
         className={`${eyebrow ? "mt-3" : ""} type-section-heading`}
@@ -21,7 +23,7 @@ export function SectionHeading({
         {title}
       </h2>
       {description ? (
-        <p className="type-body mt-4 text-pretty text-muted">{description}</p>
+        <p className="type-lead mt-4 text-pretty text-muted">{description}</p>
       ) : null}
     </div>
   );

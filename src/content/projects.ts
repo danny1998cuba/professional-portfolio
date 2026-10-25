@@ -7,6 +7,63 @@ import type {
 
 export const projects = [
   {
+    slug: "currently-natty",
+    title: "Currently Natty",
+    shortDescription:
+      "Co-owned online fitness coaching platform. I developed it end to end as its sole human developer, connecting program discovery, client qualification, shared coaching capacity, checkout integration, onboarding and coach operations.",
+    classification: "co-owned-product",
+    type: "web-application",
+    status: "production-mvp",
+    featured: true,
+    period: {
+      mvpLaunched: "2026-10",
+    },
+    delivery: {
+      scope: "end-to-end",
+      soleDeveloper: true,
+    },
+    responsibilities: [
+      "Co-owner and sole human software developer",
+      "Architecture, data modelling, frontend and backend development",
+      "Integrations and preparation for production",
+    ],
+    technologies: [
+      "Next.js",
+      "NestJS",
+      "PostgreSQL",
+      "TypeScript",
+      "React",
+      "Fastify",
+      "Drizzle ORM",
+      "Better Auth",
+      "Digistore24",
+      "Resend",
+    ],
+    capabilities: [
+      "responsive-frontend",
+      "authentication",
+      "client-qualification",
+      "capacity-management",
+      "client-onboarding",
+      "coach-operations",
+      "checkout",
+      "webhooks",
+      "deployment-infrastructure",
+    ],
+    publicUrl: "https://currentlynatty.com",
+    sourceCode: {
+      availability: "proprietary",
+    },
+    notes: [
+      "Samuel Fernandez is the original founder and lead coach.",
+      "The MVP launched in October 2026; the development start date is unconfirmed.",
+      "Administrative and application-history records are internal test examples, not commercial customer or revenue evidence.",
+    ],
+    caseStudy: {
+      available: true,
+    },
+  },
+  {
     slug: "comidas-bracamonte",
     title: "Comidas Bracamonte",
     shortDescription:
@@ -30,7 +87,6 @@ export const projects = [
     ],
     technologies: ["Next.js", "React", "Strapi"],
     capabilities: [
-      "multilingual-content",
       "weekly-menus",
       "checkout",
       "shipping-validation",
@@ -290,6 +346,31 @@ export function getFeaturedProjects(): readonly FeaturedProject[] {
     (project): project is (typeof projects)[number] & FeaturedProject =>
       project.featured,
   );
+}
+
+type FeaturedProjectSlug = Extract<
+  (typeof projects)[number],
+  { readonly featured: true }
+>["slug"];
+
+const homepageFeaturedProjectSlugs = [
+  "currently-natty",
+  "comidas-bracamonte",
+  "madres-de-la-leche",
+] as const satisfies readonly FeaturedProjectSlug[];
+
+export function getHomepageFeaturedProjects(): readonly FeaturedProject[] {
+  const featuredProjects = getFeaturedProjects();
+
+  return homepageFeaturedProjectSlugs.map((slug) => {
+    const project = featuredProjects.find((project) => project.slug === slug);
+
+    if (!project) {
+      throw new Error(`Homepage featured project not found: ${slug}`);
+    }
+
+    return project;
+  });
 }
 
 export function getSecondaryProjects(): readonly SecondaryProject[] {

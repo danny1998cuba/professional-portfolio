@@ -28,6 +28,12 @@ Suggested caption:
 
 ## Madres de la Leche
 
+### home-madres.webp
+Suggested alt:
+`Madres de la Leche home screen introducing the breastfeeding support association.`
+
+Used for homepage and Projects index previews. Feature-specific case-study figures remain separate.
+
 ### event-detail.webp
 Suggested alt:
 `Public Madres de la Leche event detail page.`
@@ -60,6 +66,12 @@ Suggested caption:
 
 ## Tipstertotal
 
+### home-tipster.webp
+Suggested alt:
+`Tipstertotal pre-launch website home screen.`
+
+Used for homepage and Projects index previews. The product's pre-launch status remains explicit in portfolio content.
+
 ### analyst-marketplace.webp
 Suggested alt:
 `Tipstertotal analyst marketplace showing multiple analyst subscription profiles.`
@@ -76,5 +88,5 @@ Suggested caption:
 
 ## Notes
 
-- The public Tipstertotal landing-page capture was intentionally excluded because it contained pre-launch marketing metrics/testimonials that should not be used as portfolio evidence.
+- The earlier full Tipstertotal landing-page capture was intentionally excluded because it contained pre-launch marketing metrics/testimonials that should not be used as portfolio evidence. The newly approved `home-tipster.webp` is a separate home-screen preview.
 - Screenshots showing the uncertain Tipstertotal rating behavior were also excluded from this media set.

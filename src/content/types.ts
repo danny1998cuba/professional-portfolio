@@ -24,6 +24,7 @@ export type IsoDate = `${YearMonth}-${Day}`;
 
 export type ProjectClassification =
   | "client"
+  | "co-owned-product"
   | "personal"
   | "open-source"
   | "technical-initiative"
@@ -38,6 +39,7 @@ export type ProjectType =
 
 export type ProjectStatus =
   | "production"
+  | "production-mvp"
   | "pre-launch"
   | "in-development"
   | "archived";
@@ -68,10 +70,24 @@ export type Technology =
   | "Developer Education"
   | "Express.js"
   | "Electron"
-  | "Pixeldrain API";
+  | "Pixeldrain API"
+  | "NestJS"
+  | "Fastify"
+  | "PostgreSQL"
+  | "Better Auth"
+  | "Digistore24"
+  | "Resend";
+
+export type ProjectPeriod =
+  | { start: YearMonth; end: YearMonth }
+  | { mvpLaunched: YearMonth };
 
 export type Capability =
   | "authentication"
+  | "client-qualification"
+  | "capacity-management"
+  | "client-onboarding"
+  | "coach-operations"
   | "checkout"
   | "cms-managed-content"
   | "coupons"
@@ -146,10 +162,8 @@ interface ProjectBase {
 export interface FeaturedProject extends ProjectBase {
   featured: true;
   status: ProjectStatus;
-  period: {
-    start: YearMonth;
-    end: YearMonth;
-  };
+  statusNote?: string;
+  period: ProjectPeriod;
   delivery: {
     scope: "end-to-end";
     soleDeveloper?: true;
