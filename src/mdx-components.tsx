@@ -9,7 +9,7 @@ function MdxLink({ href, ...props }: ComponentPropsWithoutRef<"a">) {
   return (
     <a
       href={href}
-      className="rounded-sm font-medium text-accent underline decoration-accent/40 underline-offset-4 [overflow-wrap:anywhere] transition-colors duration-150 hover:text-accent-strong hover:decoration-current active:translate-y-px motion-reduce:transition-none"
+      className="link-feedback rounded-sm font-medium text-accent underline decoration-accent/40 underline-offset-4 [overflow-wrap:anywhere]"
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener noreferrer" : undefined}
       {...props}

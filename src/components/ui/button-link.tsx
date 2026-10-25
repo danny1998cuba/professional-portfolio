@@ -13,9 +13,9 @@ interface ButtonLinkProps {
 
 const variants = {
   primary:
-    "border-accent bg-accent text-surface hover:border-accent-strong hover:bg-accent-strong",
+    "button-primary border-accent bg-accent text-surface",
   secondary:
-    "border-border bg-surface text-foreground hover:border-accent-strong hover:bg-surface-tint",
+    "button-secondary border-border bg-surface text-foreground",
 } as const;
 
 export function ButtonLink({
@@ -27,7 +27,7 @@ export function ButtonLink({
   ariaLabel,
   download,
 }: ButtonLinkProps) {
-  const className = `inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border px-5 py-2.5 text-center text-sm font-semibold shadow-soft transition-colors duration-150 active:translate-y-px motion-reduce:transition-none ${variants[variant]}`;
+  const className = `button-feedback inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border px-5 py-2.5 text-center text-sm font-semibold shadow-soft ${variants[variant]}`;
 
   if (external || download) {
     return (

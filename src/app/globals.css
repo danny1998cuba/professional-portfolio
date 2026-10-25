@@ -10,6 +10,9 @@
   --border: #c3c6d7;
   --accent: #2563eb;
   --accent-strong: #004ac6;
+  --feedback-duration: 160ms;
+  --elevation-duration: 200ms;
+  --feedback-easing: cubic-bezier(0.2, 0, 0, 1);
   color-scheme: light;
 }
 
@@ -53,6 +56,86 @@
     outline: 3px solid var(--accent);
     outline-offset: 3px;
   }
+}
+
+@layer utilities {
+  .link-feedback {
+    transition: color var(--feedback-duration) var(--feedback-easing),
+      text-decoration-color var(--feedback-duration) var(--feedback-easing),
+      background-color var(--feedback-duration) var(--feedback-easing);
+  }
+
+  .link-feedback:is(:focus-visible, :active) {
+    color: var(--accent-strong);
+    text-decoration-line: underline;
+    text-decoration-color: currentColor;
+  }
+
+  .nav-feedback:is(:focus-visible, :active) {
+    background: var(--surface-tint);
+  }
+
+  .button-feedback {
+    transition: color var(--feedback-duration) var(--feedback-easing),
+      background-color var(--feedback-duration) var(--feedback-easing),
+      border-color var(--feedback-duration) var(--feedback-easing),
+      box-shadow var(--elevation-duration) var(--feedback-easing);
+  }
+
+  .button-primary:is(:focus-visible, :active) {
+    background: var(--accent-strong);
+    border-color: var(--accent-strong);
+  }
+
+  .button-secondary:is(:focus-visible, :active) {
+    background: var(--surface-tint);
+    border-color: var(--accent-strong);
+  }
+
+  .button-feedback:active {
+    box-shadow: inset 0 1px 3px rgb(11 28 48 / 0.18);
+  }
+
+  .project-card-feedback {
+    transition: border-color var(--feedback-duration) var(--feedback-easing),
+      box-shadow var(--elevation-duration) var(--feedback-easing);
+  }
+
+  .project-card-feedback:focus-within {
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+    box-shadow: 0 10px 25px -5px rgb(11 28 48 / 0.08),
+      0 8px 10px -6px rgb(11 28 48 / 0.04);
+  }
+
+  /* Hover feedback is reserved for a precise pointer; every action stays visible. */
+  @media (hover: hover) and (pointer: fine) {
+    .link-feedback:hover {
+      color: var(--accent-strong);
+      text-decoration-line: underline;
+      text-decoration-color: currentColor;
+    }
+
+    .nav-feedback:hover {
+      background: var(--surface-tint);
+    }
+
+    .button-primary:hover {
+      background: var(--accent-strong);
+      border-color: var(--accent-strong);
+    }
+
+    .button-secondary:hover {
+      background: var(--surface-tint);
+      border-color: var(--accent-strong);
+    }
+
+    .project-card-feedback:hover {
+      border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+      box-shadow: 0 10px 25px -5px rgb(11 28 48 / 0.08),
+        0 8px 10px -6px rgb(11 28 48 / 0.04);
+    }
+  }
+
 }
 
 @layer components {
@@ -140,9 +223,8 @@
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
+    animation: none !important;
     scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
+    transition: none !important;
   }
 }

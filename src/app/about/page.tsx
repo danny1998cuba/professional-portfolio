@@ -11,7 +11,7 @@ export const metadata: Metadata = createPageMetadata({
 });
 
 const professionalLinkStyles =
-  "inline-flex min-h-11 items-center gap-1.5 rounded-sm text-sm font-semibold text-accent underline decoration-transparent underline-offset-4 transition-colors duration-150 hover:text-accent-strong hover:decoration-current active:translate-y-px motion-reduce:transition-none";
+  "link-feedback inline-flex min-h-11 items-center gap-1.5 rounded-sm text-sm font-semibold text-accent underline decoration-transparent underline-offset-4";
 
 export default function AboutPage() {
   const emailHref = `mailto:${professionalProfile.email}`;

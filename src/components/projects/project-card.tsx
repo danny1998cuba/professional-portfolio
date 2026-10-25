@@ -21,7 +21,7 @@ type ProjectCardProps =
     };
 
 const secondaryActionStyles =
-  "inline-flex min-h-11 items-center gap-1.5 rounded-sm font-semibold text-accent underline decoration-transparent underline-offset-4 transition-colors duration-150 hover:text-accent-strong hover:decoration-current active:translate-y-px motion-reduce:transition-none";
+  "link-feedback inline-flex min-h-11 items-center gap-1.5 rounded-sm font-semibold text-accent underline decoration-transparent underline-offset-4";
 
 const secondaryIconPaths: Record<SecondaryProject["type"], string> = {
   "mobile-application": "M7 3h10v18H7ZM10 17h4",
@@ -62,7 +62,7 @@ export function ProjectCard(props: ProjectCardProps) {
     const displayedTechnologies = project.technologies.slice(0, 5);
 
     return (
-      <article className="flex h-full min-w-0 flex-col rounded-2xl border border-border/50 bg-surface p-5 transition-colors duration-150 hover:border-border motion-reduce:transition-none sm:p-6">
+      <article className="project-card-feedback flex h-full min-w-0 flex-col rounded-2xl border border-border/50 bg-surface p-5 sm:p-6">
         <div className="flex items-start gap-3">
           <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-surface-tint text-accent" aria-hidden="true">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" focusable="false">
@@ -233,8 +233,8 @@ export function ProjectCard(props: ProjectCardProps) {
   return (
     <article
       className={isDetailed
-        ? "grid h-full min-w-0 overflow-hidden rounded-2xl border border-border/50 bg-surface shadow-soft transition-[border-color,box-shadow] duration-150 hover:border-border hover:shadow-md motion-reduce:transition-none lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]"
-        : "flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-border/50 bg-surface shadow-soft transition-[border-color,box-shadow] duration-150 hover:border-border hover:shadow-md motion-reduce:transition-none"}
+        ? "project-card-feedback grid h-full min-w-0 overflow-hidden rounded-2xl border border-border/50 bg-surface shadow-soft lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]"
+        : "project-card-feedback flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-border/50 bg-surface shadow-soft"}
     >
       {preview ? (
         <div className={isDetailed

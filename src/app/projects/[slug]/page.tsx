@@ -84,7 +84,7 @@ export default async function ProjectCaseStudyPage({
         <Container>
           <Link
             href="/projects"
-            className="inline-flex min-h-11 items-center gap-2 rounded-sm text-sm font-semibold text-accent underline decoration-transparent underline-offset-4 transition-colors duration-150 hover:text-accent-strong hover:decoration-current active:translate-y-px motion-reduce:transition-none"
+            className="link-feedback inline-flex min-h-11 items-center gap-2 rounded-sm text-sm font-semibold text-accent underline decoration-transparent underline-offset-4"
           >
             <span aria-hidden="true">←</span> Back to projects
           </Link>

@@ -95,7 +95,7 @@ const selectedProjectLinks = Object.fromEntries(
 ) as Record<(typeof selectedProjectSlugs)[number], readonly { label: string; url: string }[]>;
 
 const textLinkStyles =
-  "inline-flex min-h-11 items-center gap-1.5 rounded-sm font-semibold text-accent underline decoration-transparent underline-offset-4 transition-colors duration-150 hover:text-accent-strong hover:decoration-current active:translate-y-px motion-reduce:transition-none";
+  "link-feedback inline-flex min-h-11 items-center gap-1.5 rounded-sm font-semibold text-accent underline decoration-transparent underline-offset-4";
 
 interface ResumeSectionProps {
   id: string;
