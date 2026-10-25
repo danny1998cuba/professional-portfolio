@@ -221,7 +221,7 @@ export function ProjectCard(props: ProjectCardProps) {
             variant="secondary"
             external
             newTab
-            ariaLabel={`Visit the ${project.title} live website (opens in a new tab)`}
+            ariaLabel={`Visit live site for ${project.title} (opens in a new tab)`}
           >
             Visit live site <span aria-hidden="true">↗</span>
           </ButtonLink>

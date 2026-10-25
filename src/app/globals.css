@@ -36,6 +36,8 @@
   html {
     background: var(--background);
     scroll-behavior: smooth;
+    /* Leave room for the sticky header when native keyboard focus scrolls. */
+    scroll-padding-block-start: min(10rem, 50vh);
   }
 
   body {
@@ -45,6 +47,10 @@
     font-size: 0.9375rem;
     line-height: 1.6;
     text-rendering: optimizeLegibility;
+  }
+
+  main {
+    overflow-wrap: anywhere;
   }
 
   ::selection {

@@ -7,7 +7,7 @@ const steps = [
 /** A conceptual workflow, not a timeline or a screenshot of a client product. */
 export function DeliveryVisual() {
   return (
-    <div className="mx-auto w-full max-w-sm rounded-2xl border border-border/40 bg-surface p-3 shadow-soft sm:p-4 lg:order-1" aria-hidden="true">
+    <div className="mx-auto w-full min-w-0 max-w-sm rounded-2xl border border-border/40 bg-surface p-3 shadow-soft [overflow-wrap:break-word] sm:p-4 lg:order-1" aria-hidden="true">
       <div className="mb-4 hidden overflow-hidden rounded-xl border border-border/30 bg-background lg:block">
         <svg className="h-auto w-full" width="320" height="156" viewBox="0 0 320 156" fill="none" focusable="false">
           <path d="M0 26h320" stroke="var(--border)" strokeOpacity="0.45" />
@@ -28,13 +28,13 @@ export function DeliveryVisual() {
       </div>
       <div className="grid gap-2 min-[480px]:grid-cols-3 lg:grid-cols-1">
         {steps.map((step) => (
-          <div key={step.label} className="flex items-center gap-3 rounded-xl border border-border/40 bg-surface px-3 py-3 min-[480px]:flex-col min-[480px]:gap-2 lg:flex-row lg:gap-3">
+          <div key={step.label} className="flex min-w-0 items-center gap-3 rounded-xl border border-border/40 bg-surface px-3 py-3 min-[480px]:flex-col min-[480px]:gap-2 lg:flex-row lg:gap-3">
             <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-surface-tint text-accent">
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" focusable="false">
                 <path d={step.path} />
               </svg>
             </span>
-            <span className="text-xs font-medium text-foreground">{step.label}</span>
+            <span className="min-w-0 text-xs font-medium text-foreground">{step.label}</span>
           </div>
         ))}
       </div>

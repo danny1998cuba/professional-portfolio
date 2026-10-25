@@ -120,7 +120,7 @@ export default async function ProjectCaseStudyPage({
                     href={project.publicUrl}
                     external
                     newTab
-                    ariaLabel={`Visit the ${project.title} live website (opens in a new tab)`}
+                    ariaLabel={`Visit live site for ${project.title} (opens in a new tab)`}
                   >
                     Visit live site <span aria-hidden="true">↗</span>
                   </ButtonLink>
@@ -200,7 +200,7 @@ export default async function ProjectCaseStudyPage({
                 variant="secondary"
                 external
                 newTab
-                ariaLabel={`Visit the ${project.title} live website (opens in a new tab)`}
+                ariaLabel={`Visit live site for ${project.title} (opens in a new tab)`}
               >
                 Visit live site <span aria-hidden="true">↗</span>
               </ButtonLink>

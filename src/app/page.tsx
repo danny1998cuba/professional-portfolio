@@ -66,7 +66,7 @@ export default function Home() {
             >
               Full-stack software developer building{" "}
               <span className="text-accent">production web applications</span>{" "}
-              <span className="whitespace-nowrap">end to end.</span>
+              <span className="inline-block max-w-full">end to end.</span>
             </h1>
             <p className="type-body mt-5 max-w-xl text-pretty text-muted lg:mt-6">
               I work across frontend, backend, CMS integrations, payments,
