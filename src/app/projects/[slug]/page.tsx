@@ -26,8 +26,8 @@ import type { FeaturedProject } from "@/content/types";
 
 export function generateStaticParams() {
   return getAllProjects()
-    .filter((project) =>
-      hasCaseStudy(project) && hasCaseStudyContent(project.slug),
+    .filter(
+      (project) => hasCaseStudy(project) && hasCaseStudyContent(project.slug),
     )
     .map((project) => ({ slug: project.slug }));
 }
@@ -93,7 +93,8 @@ export default async function ProjectCaseStudyPage({
             <div className="min-w-0 lg:pt-2">
               <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
                 <p className="type-meta text-muted">
-                  {classificationLabels[project.classification]} · {typeLabels[project.type]}
+                  {classificationLabels[project.classification]} ·{" "}
+                  {typeLabels[project.type]}
                 </p>
                 <span
                   className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[0.6875rem] font-semibold tracking-[0.08em] uppercase ${
@@ -102,17 +103,26 @@ export default async function ProjectCaseStudyPage({
                       : "border-emerald-200 bg-emerald-50 text-emerald-800"
                   }`}
                 >
-                  <span className="size-1.5 shrink-0 rounded-full bg-current" aria-hidden="true" />
+                  <span
+                    className="size-1.5 shrink-0 rounded-full bg-current"
+                    aria-hidden="true"
+                  />
                   {statusLabels[project.status]}
                 </span>
               </div>
 
-              <h1 className="type-display mt-5 text-[2rem] leading-[1.1] text-balance [overflow-wrap:anywhere] sm:text-[2.5rem] lg:text-[3.25rem]">
+              <h1 className="type-display mt-5 text-[2rem] leading-[1.1] text-balance wrap-anywhere sm:text-[2.5rem] lg:text-[3.25rem]">
                 {project.title}
               </h1>
               <p className="type-body mt-5 max-w-2xl text-pretty text-muted">
                 {project.shortDescription}
               </p>
+
+              {project.statusNote ? (
+                <p className="type-body-small mt-4 max-w-2xl text-muted">
+                  {project.statusNote}
+                </p>
+              ) : null}
 
               {project.publicUrl ? (
                 <div className="mt-7">
@@ -128,12 +138,26 @@ export default async function ProjectCaseStudyPage({
               ) : null}
 
               <div className="mt-5 flex items-start gap-2.5 text-muted">
-                <svg className="mt-1 shrink-0" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+                <svg
+                  className="mt-1 shrink-0"
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                  focusable="false"
+                >
                   <path d="M6 10h12v11H6ZM8 10V6a4 4 0 0 1 8 0v4" />
                 </svg>
                 <p className="type-body-small max-w-xl">
                   {project.sourceCode.availability === "proprietary"
-                    ? "Client source code is proprietary and not publicly available."
+                    ? project.classification === "client"
+                      ? "Client source code is proprietary and not publicly available."
+                      : "Source code is proprietary and not publicly available."
                     : project.sourceCode.availability === "not-published"
                       ? "Source code is not publicly available."
                       : "Source code is publicly available."}
@@ -172,7 +196,7 @@ export default async function ProjectCaseStudyPage({
                   {project.technologies.map((technology) => (
                     <li
                       key={technology}
-                      className="rounded-md border border-border/30 bg-surface-tint px-2.5 py-1 font-mono text-xs text-muted [overflow-wrap:anywhere]"
+                      className="rounded-md border border-border/30 bg-surface-tint px-2.5 py-1 font-mono text-xs text-muted wrap-anywhere"
                     >
                       {technology}
                     </li>
@@ -184,8 +208,11 @@ export default async function ProjectCaseStudyPage({
         </Container>
       </header>
 
-      <section className="border-b border-border/30 bg-surface py-12 sm:py-14 lg:py-16" aria-label="Case study">
-        <Container size="reading" className="[overflow-wrap:anywhere]">
+      <section
+        className="border-b border-border/30 bg-surface py-12 sm:py-14 lg:py-16"
+        aria-label="Case study"
+      >
+        <Container size="reading" className="wrap-anywhere">
           {caseStudy}
         </Container>
       </section>

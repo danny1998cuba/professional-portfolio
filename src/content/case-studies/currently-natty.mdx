@@ -1,0 +1,173 @@
+## Context
+
+Currently Natty began as a fitness brand with a content-focused website and a broader goal: offer personalized online coaching programs through a product that could support the business beyond publishing information. Prospective clients needed to understand the available programs, while the coach needed a practical way to evaluate applicants, manage limited availability, and follow each coaching engagement from enrolment onwards.
+
+The challenge was not simply to add a checkout to a website. A coaching service depends on human capacity, individual suitability, customer identity, and work that continues after a purchase. We needed software that represented those responsibilities explicitly instead of treating a payment as the entire customer relationship.
+
+<ProjectImage
+  src="/projects/currently-natty/homepage.webp"
+  alt="Currently Natty public homepage hero presenting personalised coaching and program discovery."
+  caption="The public homepage introduces personalised coaching and directs visitors towards program discovery."
+  width={599}
+  height={2048}
+/>
+
+
+## My role
+
+I am a co-owner of Currently Natty and was its **sole human software developer**. Samuel Fernandez, the founder and lead coach, originated the brand and the initial business idea and contributed the coaching knowledge that shaped the requirements.
+
+I took responsibility for the technical development of the platform, working across product requirements, architecture, data modelling, frontend and backend implementation, integrations, and preparation for production. Being involved in the product itself also meant revisiting technical choices as we learned more about how the coaching service needed to operate.
+
+I used ChatGPT and Codex as development assistants, not as substitutes for engineering ownership. I organized implementation into small, well-defined tasks, guided the technical decisions, and used targeted validation to keep the work reviewable and efficient rather than relying on large, uncontrolled code-generation passes.
+
+## From content website to coaching platform
+
+The original direction emphasized program information, comparisons, and a direct path to purchase. As the requirements developed, that model proved incomplete. We needed to distinguish what the business offered, how a customer became eligible to buy it, whether the coach had capacity, and when the actual coaching service began.
+
+This led us away from making a CMS the centre of the application. We adopted an **API-first modular backend** that could represent the business domain independently of the public-facing website. Later, even after we had validated a test-payment journey, we changed the acquisition process to include an application and human qualification stage before checkout.
+
+That change was important: we could extend the beginning of the customer journey without replacing the commerce and coaching models downstream.
+
+## Architecture and technical decisions
+
+The project is organized as a pnpm/Turborepo monorepo, with a **Next.js and React** web application and a **NestJS API using Fastify**. **PostgreSQL**, accessed with **Drizzle**, holds the application's business data. **Better Auth** handles customer identity, while integrations such as **Digistore24** and **Resend** connect the internal workflow to payments and transactional email.
+
+Rather than introducing microservices for an MVP, I worked with a modular backend that separates concerns such as catalog, acquisition, capacity, commerce, coaching, identity, and access rights. This provided a clearer place for business rules while keeping the deployment and development model manageable.
+
+The frontend serves distinct needs: public program discovery, the customer area, coaching operations, and administrative workflows. The API owns the rules that must remain consistent across those experiences.
+
+<ProjectImage
+  src="/projects/currently-natty/program-catalog.webp"
+  alt="Currently Natty programs listing with four coaching options, category filters, pricing and a comparison table."
+  caption="The production program catalog presents coaching options, pricing and a side-by-side comparison of what each program includes."
+  width={839}
+  height={2048}
+/>
+
+
+## Modelling products, purchases, and coaching
+
+A central architectural decision was to avoid collapsing every business concept into a generic product or subscription record.
+
+- **Product, variant, and offer** represent the program itself, a specialization where relevant, and the commercial terms under which it is offered. For example, strength-focused coaching can distinguish squat, bench press, and deadlift variants without treating each as a completely different business domain.
+- **Order** records the commercial transaction, whereas **CoachingEnrollment** tracks the relationship through which the service is delivered. Completing payment does not automatically mean onboarding is finished or coaching is active.
+- **CapacityPool and CapacityReservation** represent limited coach availability across different programs, rather than assuming each program has an independent supply of coaching time.
+- **Roles and entitlements** are separate concerns: a role determines what a person may do in the application, while an entitlement represents access to a purchased or granted benefit.
+
+Keeping these concepts separate made it possible to reason about customer journeys and operational exceptions without making the payment provider the source of truth for the entire product.
+
+<ProjectImage
+  src="/projects/currently-natty/program-detail.webp"
+  alt="Basic Plan detail page showing program duration, coaching features and the application-first purchase flow."
+  caption="A program detail page links the commercial offer and coaching features to an application step before payment."
+  width={770}
+  height={2048}
+/>
+
+
+## Program discovery and customer qualification
+
+The public experience allows visitors to explore programs, examine their differences, and choose an appropriate starting point. The catalog supports program variants and English/Spanish content while keeping product identity separate from the language displayed to visitors.
+
+We initially built around direct checkout. But personalized coaching requires a suitability decision before someone purchases a place. We therefore introduced a qualification workflow in the production MVP:
+
+1. A prospective client submits an application and verifies their email address.
+2. The system considers available coaching capacity, using a reservation or waitlist path as appropriate.
+3. The coach reviews the application and decides whether to approve the proposed engagement.
+4. An approved application can proceed towards checkout under the applicable business rules.
+
+This separates interest in a program from approval to buy it. It also makes the coach's review part of the product instead of an informal step outside the system.
+
+The application and qualification workflow is deployed. **Live commercial checkout remains dependent on Digistore24's pending product approval**, so this should not be mistaken for evidence that paid customer acquisition was already operating at launch.
+
+<ProjectImage
+  src="/projects/currently-natty/coaching-application.webp"
+  alt="Coaching application form asking about goals, experience, training availability and relevant context, with identifying input values redacted."
+  caption="The application collects the context needed for suitability review before checkout. Example account values have been redacted."
+  width={1266}
+  height={2048}
+/>
+
+
+<ProjectImage
+  src="/projects/currently-natty/my-applications.webp"
+  alt="Customer application history displaying a converted test application and a cancelled application, with selection and status details."
+  caption="The application-history view shows distinct lifecycle states. These records are internal test examples, not evidence of commercial customer conversion."
+  width={1615}
+  height={2048}
+/>
+
+
+## Managing limited coaching capacity
+
+Capacity is shared human time, not just inventory on a product page. If several programs use the same coach, a place reserved through one program affects what can be offered through the others.
+
+We modelled shared capacity with temporary reservations and database-level transactional controls, including PostgreSQL locking. The aim was to avoid conflicting allocations when applicants or checkout-related processes compete for limited places. Reservations also need an expiry lifecycle so that abandoned processes do not hold capacity indefinitely.
+
+This increased the number of states the application needed to manage, but it represented the business constraint more faithfully than a simple per-program availability flag. The capacity model is implemented; it would be inaccurate to claim a measured concurrency limit or proven performance under heavy production traffic.
+
+## Payment integration and fulfilment
+
+We evaluated payment providers with the nature of the business in mind: this is human-delivered coaching, not simply downloadable software. We selected **Digistore24** as the intended Merchant of Record and isolated its integration behind a billing-provider boundary.
+
+The application maintains its own checkout intents, commercial references, orders, and enrolments. Provider-specific product mappings can vary by offer and language without changing the internal identity of a program. Payment notifications are verified on the backend, and idempotent processing is designed to avoid creating duplicate commercial records when notifications are retried.
+
+A documented end-to-end **test-payment flow** demonstrated the core sequence: Digistore24 Test Pay, payment notification, paid order creation, coaching enrolment, onboarding, activation, and visibility in the customer and coach areas.
+
+At the October 2026 MVP launch, Digistore24's final commercial approval was still pending. This test establishes that the integrated workflow was exercised; it is **not a claim of real sales, payment volume, or completed production purchases**.
+
+## Identity, onboarding, and the customer experience
+
+Better Auth provides account access, including email/password and Google sign-in. The purchase flow also needs to account for customers who begin as guests and later connect their purchase to an account. For that reason, ownership cannot safely depend on matching a mutable email address alone: checkout correlation, user identity, and enrolment ownership are handled as separate concerns.
+
+After an enrolment is created, the customer completes a multi-step onboarding flow covering the information the coach needs to begin providing the service. The experience supports partial progress and resuming later rather than requiring every answer in one session.
+
+The customer area provides access to the enrolment and program state. A separate coach-facing area supports viewing and filtering enrolments and the operational information required to follow up with clients. The qualification workflow adds coach-side review of applications before they reach the commercial stage.
+
+<ProjectImage
+  src="/projects/currently-natty/coach-operations.webp"
+  alt="Coach operations dashboard for filtering enrolments, tracking onboarding and reviewing program details; identifying details and test counts redacted."
+  caption="The coach operations view supports enrolment oversight. Identifying information and test-record counts are redacted."
+  width={1754}
+  height={1324}
+/>
+
+
+<ProjectImage
+  src="/projects/currently-natty/my-coaching-program.webp"
+  alt="Customer coaching area showing an active Basic Plan, program dates, available coaching access and next steps."
+  caption="A customer-facing program view separates enrolment lifecycle and coaching access from the earlier payment flow."
+  width={1754}
+  height={1247}
+/>
+
+
+Because onboarding may involve personal and health-related information, the public application form is designed to ask for less information initially, leaving more detailed intake for the appropriate later stage.
+
+## An iterative, AI-assisted development process
+
+The project evolved through requirements analysis, architecture decisions, scoped implementation tasks, validation, and staging work. I used ChatGPT to support technical exploration and Codex to assist with implementation, deliberately keeping tasks small enough to inspect and validate.
+
+This was particularly useful when requirements changed: instead of asking a coding assistant to regenerate the application, we could work on one domain boundary or workflow at a time, retaining what already functioned.
+
+The documented development process included focused checks, build and type validation, staging reviews, and manual end-to-end testing. I would not present this as proof of comprehensive test coverage, a formal security certification, or performance at scale.
+
+## Trade-offs and lessons learned
+
+Several decisions reflect the balance between getting an MVP into production and building a foundation that can evolve:
+
+- **A modular monolith over microservices:** clearer business boundaries without distributed infrastructure that the initial product did not need.
+- **Business-owned order and enrolment state:** more internal modelling work, but less dependence on the payment provider's representation of the customer relationship.
+- **Shared capacity with expiring reservations:** more lifecycle management, but a better fit for a service constrained by a real person's availability.
+- **Qualification before payment:** an additional step for applicants, but a necessary opportunity for the coach to assess fit before committing limited time.
+
+The strongest lesson for me was that designing around real operational constraints matters more than connecting a polished frontend to a payment button. Good technical separation made it easier to respond when the business process changed.
+
+## Production MVP and next steps
+
+Currently Natty's MVP was deployed in **October 2026**. It provides a production foundation for program discovery, applications and qualification, identity, capacity management, onboarding, and customer and coach workflows. The core payment-to-enrolment journey was validated with a test transaction before launch.
+
+There are important distinctions in the current status: **the application is deployed, but Digistore24 commercial product approval remains pending**. We are not claiming revenue, customer acquisition, usage, or conversion metrics from the launch.
+
+The next phase focuses on bringing existing coaching clients into the platform without inventing historical purchases, and allowing the coach to initiate applications for clients who arrive through personal contact. Broader fitness tracking, community features, and native mobile applications are outside the released MVP.

@@ -1,6 +1,7 @@
 import type {
   Capability,
   ProjectClassification,
+  ProjectPeriod,
   ProjectStatus,
   ProjectType,
   YearMonth,
@@ -8,6 +9,7 @@ import type {
 
 export const classificationLabels: Record<ProjectClassification, string> = {
   client: "Client work",
+  "co-owned-product": "Co-owned product",
   personal: "Personal project",
   "open-source": "Open source",
   "technical-initiative": "Technical initiative",
@@ -24,6 +26,7 @@ export const typeLabels: Record<ProjectType, string> = {
 
 export const statusLabels: Record<ProjectStatus, string> = {
   production: "Production",
+  "production-mvp": "Production MVP",
   "pre-launch": "Pre-launch",
   "in-development": "In development",
   archived: "Archived",
@@ -31,6 +34,10 @@ export const statusLabels: Record<ProjectStatus, string> = {
 
 export const capabilityLabels: Record<Capability, string> = {
   authentication: "Authentication",
+  "client-qualification": "Client qualification",
+  "capacity-management": "Shared coaching capacity",
+  "client-onboarding": "Client onboarding",
+  "coach-operations": "Coach operations",
   checkout: "Checkout",
   "cms-managed-content": "CMS-managed content",
   coupons: "Coupons",
@@ -80,9 +87,10 @@ export function formatYearMonth(value: YearMonth): string {
   return `${monthLabels[Number(month) - 1]} ${year}`;
 }
 
-export function formatProjectPeriod(period: {
-  start: YearMonth;
-  end: YearMonth;
-}): string {
+export function formatProjectPeriod(period: ProjectPeriod): string {
+  if ("mvpLaunched" in period) {
+    return `MVP launched ${formatYearMonth(period.mvpLaunched)}`;
+  }
+
   return `${formatYearMonth(period.start)}–${formatYearMonth(period.end)}`;
 }

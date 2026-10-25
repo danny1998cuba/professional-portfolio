@@ -5,7 +5,7 @@ import { ProjectCard } from "@/components/projects/project-card";
 import { ButtonLink } from "@/components/ui/button-link";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { professionalProfile } from "@/content/profile";
-import { getFeaturedProjects } from "@/content/projects";
+import { getHomepageFeaturedProjects } from "@/content/projects";
 
 const capabilityGroups = [
   {
@@ -42,7 +42,7 @@ const professionalLinkStyles =
   "link-feedback inline-flex min-h-11 items-center rounded-sm font-medium text-accent underline decoration-transparent underline-offset-4";
 
 export default function Home() {
-  const featuredProjects = getFeaturedProjects();
+  const featuredProjects = getHomepageFeaturedProjects();
   const emailHref = `mailto:${professionalProfile.email}`;
 
   return (
@@ -146,7 +146,7 @@ export default function Home() {
           <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <SectionHeading
               id="featured-work-heading"
-              eyebrow="Selected client projects"
+              eyebrow="Selected projects"
               title="Featured Work"
               description="Production and pre-launch applications delivered from product requirements through implementation and deployment."
             />

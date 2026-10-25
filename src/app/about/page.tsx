@@ -26,9 +26,12 @@ export default function AboutPage() {
 
       <div className="pb-14 sm:pb-16 lg:pb-20">
         <Container className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start lg:gap-14">
-          <div className="min-w-0 max-w-[42rem] space-y-10 [overflow-wrap:anywhere] sm:space-y-12">
+          <div className="min-w-0 max-w-2xl space-y-10 wrap-anywhere sm:space-y-12">
             <section aria-labelledby="product-needs-heading">
-              <h2 id="product-needs-heading" className="text-[1.75rem] leading-[1.2] font-bold tracking-[-0.025em] text-balance before:mb-5 before:block before:h-0.5 before:w-6 before:rounded-full before:bg-accent before:content-[''] sm:text-[2rem] lg:text-[2.25rem]">
+              <h2
+                id="product-needs-heading"
+                className="text-[1.75rem] leading-[1.2] font-bold tracking-tight text-balance before:mb-5 before:block before:h-0.5 before:w-6 before:rounded-full before:bg-accent before:content-[''] sm:text-[2rem] lg:text-[2.25rem]"
+              >
                 I build software around real product needs
               </h2>
               <div className="type-body mt-5 space-y-4 leading-[1.75] text-pretty text-muted">
@@ -41,17 +44,23 @@ export default function AboutPage() {
                 <p>
                   My work has taken me across frontend development, backend
                   services, content management systems, payments,
-                  authentication, APIs, and deployment. I’m comfortable owning
-                  a feature from the interface through the supporting data and
+                  authentication, APIs, and deployment. I’m comfortable owning a
+                  feature from the interface through the supporting data and
                   integrations, while also fitting well into frontend-heavy
-                  roles where product UI and component architecture are the
-                  main focus.
+                  roles where product UI and component architecture are the main
+                  focus.
                 </p>
               </div>
             </section>
 
-            <section className="border-t border-border/40 pt-10 sm:pt-12" aria-labelledby="background-heading">
-              <h2 id="background-heading" className="type-section-heading text-balance">
+            <section
+              className="border-t border-border/40 pt-10 sm:pt-12"
+              aria-labelledby="background-heading"
+            >
+              <h2
+                id="background-heading"
+                className="type-section-heading text-balance"
+              >
                 From systems and IT to product development
               </h2>
               <div className="type-body mt-5 space-y-4 leading-[1.75] text-pretty text-muted">
@@ -59,8 +68,8 @@ export default function AboutPage() {
                   My background started with Computer Engineering, where I
                   worked with databases, web development, networking, servers,
                   and Java-based systems. I later worked in IT infrastructure
-                  and contributed to software projects using Angular and
-                  Express before moving further into client-facing full-stack
+                  and contributed to software projects using Angular and Express
+                  before moving further into client-facing full-stack
                   development.
                 </p>
                 <p>
@@ -74,8 +83,14 @@ export default function AboutPage() {
               </div>
             </section>
 
-            <section className="border-t border-border/40 pt-10 sm:pt-12" aria-labelledby="end-to-end-heading">
-              <h2 id="end-to-end-heading" className="type-section-heading text-balance">
+            <section
+              className="border-t border-border/40 pt-10 sm:pt-12"
+              aria-labelledby="end-to-end-heading"
+            >
+              <h2
+                id="end-to-end-heading"
+                className="type-section-heading text-balance"
+              >
                 Building end to end
               </h2>
               <div className="type-body mt-5 space-y-4 leading-[1.75] text-pretty text-muted">
@@ -85,26 +100,35 @@ export default function AboutPage() {
                 </p>
                 <p>
                   That has included a subscription food-service platform with
-                  custom CMS workflows and geographic pricing rules, a
-                  nonprofit membership platform with payments and custom
-                  Payload extensions, and a sports-analysis marketplace with
+                  custom CMS workflows and geographic pricing rules, a nonprofit
+                  membership platform with payments and custom Payload
+                  extensions, and a sports-analysis marketplace with
                   subscription and payout infrastructure.
                 </p>
                 <p>
                   Across those projects, I have handled frontend development,
-                  backend logic, integrations, CMS architecture, deployment,
-                  and ongoing maintenance rather than working on only one
-                  isolated layer.
+                  backend logic, integrations, CMS architecture, deployment, and
+                  ongoing maintenance rather than working on only one isolated
+                  layer.
                 </p>
               </div>
             </section>
 
-            <section className="border-t border-border/40 pt-10 sm:pt-12" aria-labelledby="work-style-heading">
-              <h2 id="work-style-heading" className="type-section-heading text-balance">
+            <section
+              className="border-t border-border/40 pt-10 sm:pt-12"
+              aria-labelledby="work-style-heading"
+            >
+              <h2
+                id="work-style-heading"
+                className="type-section-heading text-balance"
+              >
                 How I like to work
               </h2>
               <div className="type-body mt-5 space-y-4 leading-[1.75] text-pretty text-muted">
-                <p>I prefer understanding the problem before choosing the implementation.</p>
+                <p>
+                  I prefer understanding the problem before choosing the
+                  implementation.
+                </p>
                 <p>
                   Sometimes the right answer is a reusable React component.
                   Other times it is changing the data model, extending a CMS,
@@ -124,8 +148,14 @@ export default function AboutPage() {
               </div>
             </section>
 
-            <section className="rounded-2xl border border-border/40 bg-surface-tint/70 p-5 sm:p-7" aria-labelledby="roles-heading">
-              <h2 id="roles-heading" className="type-section-heading text-balance">
+            <section
+              className="rounded-2xl border border-border/40 bg-surface-tint/70 p-5 sm:p-7"
+              aria-labelledby="roles-heading"
+            >
+              <h2
+                id="roles-heading"
+                className="type-section-heading text-balance"
+              >
                 What I’m looking for
               </h2>
               <div className="type-body mt-5 space-y-4 leading-[1.75] text-pretty text-muted">
@@ -147,8 +177,14 @@ export default function AboutPage() {
             </section>
           </div>
 
-          <aside className="min-w-0 rounded-2xl border border-border/40 bg-surface p-5 shadow-soft sm:p-6 lg:sticky lg:top-28" aria-labelledby="about-facts-heading">
-            <h2 id="about-facts-heading" className="section-eyebrow type-meta text-accent">
+          <aside
+            className="min-w-0 rounded-2xl border border-border/40 bg-surface p-5 shadow-soft sm:p-6 lg:sticky lg:top-28"
+            aria-labelledby="about-facts-heading"
+          >
+            <h2
+              id="about-facts-heading"
+              className="section-eyebrow type-meta text-accent"
+            >
               At a glance
             </h2>
             <dl className="mt-5 space-y-5 [&>div+div]:border-t [&>div+div]:border-border/30 [&>div+div]:pt-5">
@@ -178,7 +214,10 @@ export default function AboutPage() {
               </div>
             </dl>
 
-            <nav className="mt-6 border-t border-border/30 pt-3" aria-label="About page contact links">
+            <nav
+              className="mt-6 border-t border-border/30 pt-3"
+              aria-label="About page contact links"
+            >
               <ul className="flex flex-wrap gap-x-4 gap-y-1">
                 <li>
                   <a

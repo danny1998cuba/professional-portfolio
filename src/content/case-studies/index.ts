@@ -1,4 +1,5 @@
 import ComidasBracamonteCaseStudy from "./comidas-bracamonte.mdx";
+import CurrentlyNattyCaseStudy from "./currently-natty.mdx";
 import MadresDeLaLecheCaseStudy from "./madres-de-la-leche.mdx";
 import TipstertotalCaseStudy from "./tipstertotal.mdx";
 import { projects } from "../projects";
@@ -9,6 +10,7 @@ type ProjectWithCaseStudySlug = Extract<
 >["slug"];
 
 export const caseStudies = {
+  "currently-natty": CurrentlyNattyCaseStudy,
   "comidas-bracamonte": ComidasBracamonteCaseStudy,
   "madres-de-la-leche": MadresDeLaLecheCaseStudy,
   tipstertotal: TipstertotalCaseStudy,

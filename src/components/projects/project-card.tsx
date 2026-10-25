@@ -36,6 +36,12 @@ const projectPreviews: Record<
   string,
   { src: string; alt: string; width: number; height: number }
 > = {
+  "currently-natty": {
+    src: "/projects/currently-natty/homepage-preview.webp",
+    alt: "Currently Natty public homepage introducing personalised online coaching and program discovery.",
+    width: 599,
+    height: 460,
+  },
   "comidas-bracamonte": {
     src: "/projects/comidas-bracamonte/plan-and-postal-code.webp",
     alt: "Comidas Bracamonte subscription plans and postal-code configuration.",
@@ -166,6 +172,10 @@ export function ProjectCard(props: ProjectCardProps) {
       >
         {project.shortDescription}
       </p>
+
+      {project.statusNote ? (
+        <p className="type-caption mt-3 text-muted">{project.statusNote}</p>
+      ) : null}
 
       <div className={isDetailed ? "mt-6 space-y-5" : "mt-6"}>
         <div>

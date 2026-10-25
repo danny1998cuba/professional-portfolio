@@ -7,7 +7,7 @@ const steps = [
 /** A conceptual workflow, not a timeline or a screenshot of a client product. */
 export function DeliveryVisual() {
   return (
-    <div className="mx-auto w-full min-w-0 max-w-sm rounded-2xl border border-border/40 bg-surface p-3 shadow-soft [overflow-wrap:break-word] sm:p-4 lg:order-1" aria-hidden="true">
+    <div className="mx-auto w-full min-w-0 max-w-sm rounded-2xl border border-border/40 bg-surface p-3 shadow-soft wrap-break-word sm:p-4 lg:order-1" aria-hidden="true">
       <div className="mb-4 hidden overflow-hidden rounded-xl border border-border/30 bg-background lg:block">
         <svg className="h-auto w-full" width="320" height="156" viewBox="0 0 320 156" fill="none" focusable="false">
           <path d="M0 26h320" stroke="var(--border)" strokeOpacity="0.45" />
